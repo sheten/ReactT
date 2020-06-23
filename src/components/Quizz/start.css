@@ -1,0 +1,38 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+}
+.mainDiv {
+  text-align: center;
+  position: relative;
+  margin-bottom: 10vh;
+}
+#title {
+  font-size: 12vh;
+  font-weight: 600;
+}
+#content {
+  font-size: 3vh;
+  font-weight: 200;
+}
+input {
+  font-size: 4vh;
+  font-weight: 700;
+  color: whitesmoke !important;
+  margin: 0, auto;
+  background-color: black;
+  border-radius: 10%;
+  color: black;
+  border: 2px solid black;
+  transition: 1s;
+  padding: 3.7vh 6vh 3.7vh 6vh;
+}
+input:hover {
+  background-color: whitesmoke;
+  border-radius: 10%;
+  color: black !important;
+  border: 5px solid black;
+}

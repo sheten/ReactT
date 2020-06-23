@@ -1,0 +1,137 @@
+/* 
+BURGER VISUALITY 
+*/
+
+.menu-btn {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: 10vh;
+  transition: all 0.5s ease-in-out;
+  position: relative;
+  width: 10vh;
+}
+.menu-btn_burger {
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 5.6px rgba(0, 123, 255, 0.5);
+  height: 0.45vh;
+  text-align: start;
+  transition: all 0.5s ease-in-out;
+  width: 4vh;
+}
+.menu-btn_burger::before,
+.menu-btn_burger::after {
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 5.6px rgba(0, 123, 255, 0.5);
+  content: "";
+  height: 0.45vh;
+  transition: all 0.5s ease-in-out;
+  position: absolute;
+  width: 5vh;
+}
+.menu-btn_burger::before {
+  transform: translateY(-1.4vh);
+}
+.menu-btn_burger::after {
+  transform: translateY(1.4vh);
+}
+
+/* 
+BURGER ANIMATION 
+*/
+
+.menu-btn.open .menu-btn_burger {
+  background: transparent;
+  box-shadow: none;
+  transform: translateX(-150px);
+}
+.menu-btn.open .menu-btn_burger::before {
+  transform: rotate(45deg) translate(105px, -105px);
+}
+.menu-btn.open .menu-btn_burger::after {
+  transform: rotate(-45deg) translate(105px, 105px);
+}
+
+/*
+Navigation Section
+*/
+
+nav {
+  background: #1c6ea4;
+  height: 10vh;
+  width: 100%;
+}
+nav ul {
+  background: rgba(28, 110, 164);
+  flex-direction: column;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 15vh 0 35vh 0;
+  position: fixed;
+  right: -100%;
+  text-align: center;
+  transition: 1s;
+  width: 100%;
+}
+nav ul li {
+  line-height: 9vh;
+  list-style: none;
+  margin: 1vh 0;
+}
+.nav-Link {
+  box-shadow: 0 4px 5.6px rgba(0, 123, 255, 0.5);
+  color: white;
+  font-size: 4.5vh;
+}
+.checkbtn {
+  color: white;
+  cursor: pointer;
+  display: block;
+  font-size: 30px;
+  float: right;
+  line-height: 80px;
+  margin-right: 40px;
+}
+#check {
+  display: none;
+}
+#navbar {
+  overflow: none;
+}
+.sticky {
+  top: 0;
+  position: relative;
+  width: 100%;
+}
+.navbar .nav-item {
+  display: flex;
+  width: 100vh;
+  padding: 10px 0px;
+  text-align: center;
+}
+#check:checked ~ ul {
+  right: 0;
+}
+@media (max-width: 858px) {
+  .checkbtn {
+    display: block;
+  }
+  nav ul {
+    background: #1c6ea4;
+    left: -100%;
+    transition: 0.5s;
+    position: fixed;
+  }
+  .navbar .nav-item {
+    display: block;
+    width: 100vh;
+    padding: 10px 0px;
+    text-align: center;
+  }
+  #check:checked ~ ul {
+    left: 0;
+  }
+}

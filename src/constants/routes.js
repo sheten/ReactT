@@ -1,0 +1,10 @@
+export const SIGN_UP = "/signup";
+export const SIGN_IN = "/signin";
+export const HOME = "/";
+export const QUESTIONS = "/questions";
+export const ACCOUNT = "/account";
+export const GRAPHICS = "/graphics";
+export const QUIZZ = "/quizz";
+export const INTRODUCTION = "/introduction";
+export const ADMIN = "/admin";
+export const PASSWORD_FORGET = "/pw-forget";

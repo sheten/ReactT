@@ -23,7 +23,7 @@ const SignOutButton = ({ firebase }) => (
       // justifyContent: "center",
     }}
   >
-    Sign Out
+    Atsijungti
   </button>
 );
 

@@ -1,12 +1,87 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
+import GlobalStyle from "../GlobalStyle";
+import Hello from "./helloA.svg";
 
 import { withFirebase } from "../Firebase";
+import styled from "styled-components";
 import * as ROUTES from "../../constants/routes";
 
+// STYLED_CMPONENTS STYLE
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 100%;
+
+  @media only screen and (max-width: 800px) {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+`;
+const Div = styled.div`
+  display: flex;
+  flex: 1;
+  width: 100%;
+
+  @media only screen and (max-width: 800px) {
+    margin: 0;
+  }
+`;
+const Input = styled.input`
+  background: none;
+  border: 0.6vh solid #1c6ea4;
+  border-radius: 4%;
+  color: #1c6ea4;
+  flex: 1;
+  margin: 0.5vh;
+  padding: 1.6vh;
+  width: 90%;
+
+  @media only screen and (max-width: 800px) {
+    border: 0.4vh solid #1c6ea4;
+    border-radius: 4%;
+    flex: 1;
+    padding: 0.6vh;
+    width: 85%;
+  }
+`;
+const Button = styled.button`
+  background: #1c6ea4;
+  border-radius: 2%;
+  box-shadow: 2px 4px 10px #1c6ea4;
+  color: antiquewhite;
+  cursor: pointer;
+  flex: 1;
+  font-size: 2vh;
+  margin: 1vh 0;
+  padding: 1.6vh;
+  width: 100%;
+
+  @media only screen and (max-width: 800px) {
+    border: 0.3vh solid black;
+    box-shadow: 1px 2px 5px #1c6ea4;
+    flex: 1;
+    margin: 0.3vh;
+    margin-top: 0.7vh !important;
+    padding: 0.5vh;
+    width: 98%;
+  }
+`;
+const Img = styled.img`
+  height: auto;
+  width: 45vh;
+
+  @media only screen and (max-width: 800px) {
+    height: 60%;
+  }
+`;
+
 const SignUpPage = () => (
-  <div style={{ textAlign: "center", marginTop: "5vh" }}>
-    <h1 style={{ color: "#1c6ea4", fontSize: "6vh" }}>SignUp</h1>
+  <div style={{ textAlign: "center", marginTop: "5vh", height: "20vh" }}>
+    <h1 style={{ color: "#1c6ea4", fontSize: "6vh" }}>Registracija</h1>
     <hr style={{ background: "#1c6ea4" }} />
     <SignUpForm />
   </div>
@@ -39,12 +114,12 @@ class SignUpFormBase extends Component {
           email,
         });
       })
+      .catch((error) => {
+        this.setState({ error });
+      })
       .then((authUser) => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.HOME);
-      })
-      .catch((error) => {
-        this.setState({ error });
       });
 
     event.preventDefault();
@@ -64,106 +139,75 @@ class SignUpFormBase extends Component {
       fullName === "";
 
     return (
-      <form
-        onSubmit={this.onSubmit}
-        style={{ display: "flex", flexDirection: "column" }}
+      <div
+        style={{
+          alignItems: "center",
+          display: "flex",
+          flexDirection: "column",
+          height: "80vh",
+          justifyContent: "space-between",
+        }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            marginTop: "5vh",
-            width: "100%",
-          }}
-        >
-          <input
-            name="fullName"
-            value={fullName}
-            onChange={this.onChange}
-            type="text"
-            placeholder="Full Name"
-            style={{
-              background: "none",
-              border: "2px inset #1c6ea4",
-              color: "#1c6ea4",
-              flex: 1,
-              margin: "4px 8px 8px 8px",
-            }}
-          />
-          <input
-            name="email"
-            value={email}
-            onChange={this.onChange}
-            type="text"
-            placeholder="Email Address"
-            style={{
-              background: "none",
-              border: "2px inset #1c6ea4",
-              color: "#1c6ea4",
-              flex: 1,
-              margin: "4px 8px 8px 8px",
-            }}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-around",
-            marginTop: "1vh",
-            width: "100%",
-          }}
-        >
-          <input
-            name="passwordOne"
-            value={passwordOne}
-            onChange={this.onChange}
-            type="password"
-            placeholder="Password"
-            style={{
-              background: "none",
-              border: "2px inset #1c6ea4",
-              color: "#1c6ea4",
-              flex: 1,
-              margin: "0px 8px 8px 8px",
-            }}
-          />
-          <input
-            name="passwordTwo"
-            value={passwordTwo}
-            onChange={this.onChange}
-            type="password"
-            placeholder="Confirm Password"
-            style={{
-              background: "none",
-              border: "2px inset #1c6ea4",
-              color: "#1c6ea4",
-              flex: 1,
-              margin: "0px 8px 8px 8px",
-            }}
-          />
-        </div>
-        <button
-          disabled={isInvalid}
-          type="submit"
-          style={{
-            background: "none",
-            border: "2px inset #1c6ea4",
-            color: "#1c6ea4",
-            margin: "4px 8px 8px 8px",
-          }}
-        >
-          Sign Up
-        </button>
+        <GlobalStyle />
 
-        {error && <p>{error.message}</p>}
-      </form>
+        <div
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            display: "flex",
+            marginTop: "5vh",
+          }}
+        >
+          <Form onSubmit={this.onSubmit}>
+            <Div>
+              <Input
+                name="fullName"
+                value={fullName}
+                onChange={this.onChange}
+                type="text"
+                placeholder="Vardas Pavarde"
+              />
+              <Input
+                name="email"
+                value={email}
+                onChange={this.onChange}
+                type="text"
+                placeholder="Email Adresas"
+              />
+            </Div>
+            <Div>
+              <Input
+                name="passwordOne"
+                value={passwordOne}
+                onChange={this.onChange}
+                type="password"
+                placeholder="Slaptazodis"
+              />
+              <Input
+                name="passwordTwo"
+                value={passwordTwo}
+                onChange={this.onChange}
+                type="password"
+                placeholder="Patvirtinti Slaptazodi"
+              />
+            </Div>
+            <Button disabled={isInvalid} type="submit">
+              Registruotis
+            </Button>
+
+            {error && <p>{error.message}</p>}
+          </Form>
+        </div>
+
+        <Img src={Hello} alt="Hello" />
+      </div>
     );
   }
 }
 
 const SignUpLink = () => (
   <p style={{ color: "black" }}>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+    Neesi uzsiregistraves? <Link to={ROUTES.SIGN_UP}>Uzsiregistruoti</Link>
   </p>
 );
 

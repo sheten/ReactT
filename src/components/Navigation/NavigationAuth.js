@@ -25,6 +25,10 @@ import "./burger.css";
 // `;
 
 export default class NavigationAuth extends Component {
+  handleChecked = (e) => {
+    document.getElementById("check").checked = false;
+  };
+
   handleBurgerClick = (e) => {
     const menuBtn = document.querySelector(".menu-btn");
     if (document.getElementById("Hamburger").classList.contains("open")) {
@@ -59,20 +63,32 @@ export default class NavigationAuth extends Component {
 
         <ul>
           <li>
-            <Link to={ROUTES.ACCOUNT} className="nav-Link">
-              Account
+            <Link
+              to={ROUTES.ADMIN}
+              className="nav-Link"
+              onClick={this.handleChecked}
+            >
+              Vartotojai
             </Link>
           </li>
           <li>
-            <Link to={ROUTES.GRAPHICS} className="nav-Link">
+            <Link
+              to={ROUTES.ACCOUNT}
+              className="nav-Link"
+              onClick={this.handleChecked}
+            >
+              Profilis
+            </Link>
+          </li>
+          {/* <li>
+            <Link
+              to={ROUTES.GRAPHICS}
+              className="nav-Link"
+              onClick={this.handleChecked}
+            >
               Graphics
             </Link>
-          </li>
-          <li>
-            <Link to={ROUTES.ADMIN} className="nav-Link">
-              Admin
-            </Link>
-          </li>
+          </li> */}
           <li>
             <SignOutButton />
           </li>

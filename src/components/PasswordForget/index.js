@@ -55,7 +55,7 @@ class PasswordForgetFormBase extends Component {
           value={this.state.email}
           onChange={this.onChange}
           type="text"
-          placeholder="Email Address"
+          placeholder="Email Adresas"
           style={{
             background: "none",
             border: "2px inset #1c6ea4",
@@ -73,7 +73,7 @@ class PasswordForgetFormBase extends Component {
             margin: "5px",
           }}
         >
-          Reset My Password
+          Atstatyti Slaptazodi
         </button>
 
         {error && <p>{error.message}</p>}
@@ -84,7 +84,7 @@ class PasswordForgetFormBase extends Component {
 
 const PasswordForgetLink = () => (
   <p>
-    <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
+    <Link to={ROUTES.PASSWORD_FORGET}>Uzmirsai Slaptazodi?</Link>
   </p>
 );
 

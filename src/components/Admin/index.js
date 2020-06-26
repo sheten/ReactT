@@ -42,7 +42,13 @@ class AdminPage extends Component {
         <p style={{ fontSize: "5vh", fontWeight: "500", margin: 0 }}>Admin</p>
         <hr />
 
-        {loading && <div style={{ marginTop: "5vh" }}>Loading ...</div>}
+        {loading && (
+          <div style={{ marginTop: "5vh" }}>
+            Loading Users...
+            <br />
+            Ideja
+          </div>
+        )}
 
         <UserList users={users} />
       </div>

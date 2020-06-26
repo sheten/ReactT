@@ -18,18 +18,32 @@ const Div = styled.div`
   padding: 25px;
   width: max-content;
 `;
+const Input = styled.input`
+  background: #1c6ea4;
+  border: none;
+  border-radius: 6%;
+  color: antiquewhite;
+  margin: 5px;
+  padding: 0.6vh;
+
+  ::placeholder {
+    color: antiquewhite;
+  }
+`;
 const SignInPage = () => (
   <div
     style={{
       alignItems: "center",
-      background: "#f7f1f1",
+      background: "#fafafa",
       display: "flex",
       height: "100vh",
       justifyContent: "center",
     }}
   >
     <Div>
-      <h1 style={{ color: "#1c6ea4", flex: 1, fontSize: "7vh" }}>SignIn</h1>
+      <h1 style={{ color: "#1c6ea4", flex: 1, fontSize: "7vh" }}>
+        Prisijungti
+      </h1>
       <div style={{ flex: 2 }}>
         <SignInForm />
         <PasswordForgetLink />
@@ -79,46 +93,37 @@ class SignInFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
-        <input
+        <Input
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
-          placeholder="Email Address"
-          style={{
-            background: "#ffffff",
-            border: "none",
-            borderRadius: "6%",
-            margin: "5px",
-          }}
+          placeholder="Email Adresas"
         />
         <br />
-        <input
+        <Input
           name="password"
           value={password}
           onChange={this.onChange}
           type="password"
-          placeholder="Password"
-          style={{
-            background: "#ffffff",
-            border: "none",
-            borderRadius: "6%",
-            margin: "5px",
-          }}
+          placeholder="Slaptazodis"
         />
         <br />
         <button
           disabled={isInvalid}
           type="submit"
           style={{
-            background: "none",
-            border: "2px inset #1c6ea4",
-            color: "#1c6ea4",
+            background: "#1c6ea4",
+            boxShadow: "1px 2px 5px #1c6ea4",
+            color: "antiquewhite",
+            cursor: "pointer",
             margin: "5px",
           }}
         >
-          Sign In
+          Prisijungti
         </button>
+        <br />
+        <br />
 
         {error && <p>{error.message}</p>}
       </form>

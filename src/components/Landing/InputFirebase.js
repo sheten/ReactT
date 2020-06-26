@@ -27,6 +27,7 @@ const FormButton = styled.button`
   background: #1c6ea4;
   border: 2px inset black;
   color: antiquewhite;
+  cursor: pointer;
   font-size: 2.5vh;
   height: 6.5vh;
 `;
@@ -50,6 +51,7 @@ class InputFirebase extends Component {
     });
   };
   handleSubmit = (e) => {
+    e.preventDefault();
     var today = new Date();
 
     this.props.firebase.firestore
@@ -59,10 +61,8 @@ class InputFirebase extends Component {
         Atsakymai: this.state,
       })
       .then(() => {
-        console.log(this.state);
+        alert("Siandienos Ivertinimas Uzfiksuotas!");
       });
-
-    e.preventDefault();
   };
 
   render() {
@@ -70,6 +70,7 @@ class InputFirebase extends Component {
       <Form onSubmit={this.handleSubmit}>
         <div style={{ display: "flex" }}>
           <Input
+            required
             placeholder="1"
             type="text"
             id="Q1"
@@ -77,6 +78,7 @@ class InputFirebase extends Component {
             onChange={this.onValueChange}
           />
           <Input
+            required
             placeholder="2"
             type="text"
             id="Q2"
@@ -84,6 +86,7 @@ class InputFirebase extends Component {
             onChange={this.onValueChange}
           />
           <Input
+            required
             placeholder="3"
             type="text"
             id="Q3"
@@ -91,6 +94,7 @@ class InputFirebase extends Component {
             onChange={this.onValueChange}
           />
           <Input
+            required
             placeholder="4"
             type="text"
             id="Q4"
@@ -98,6 +102,7 @@ class InputFirebase extends Component {
             onChange={this.onValueChange}
           />
           <Input
+            required
             placeholder="5"
             type="text"
             id="Q5"
@@ -105,6 +110,7 @@ class InputFirebase extends Component {
             onChange={this.onValueChange}
           />
           <Input
+            required
             placeholder="6"
             type="text"
             id="Q6"

@@ -67,6 +67,7 @@ nav {
 nav ul {
   background: rgba(28, 110, 164);
   flex-direction: column;
+  height: 100%;
   margin-bottom: 0;
   margin-top: 0;
   padding: 15vh 0 35vh 0;

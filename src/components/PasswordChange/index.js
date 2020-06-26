@@ -47,7 +47,6 @@ const Input = styled.input`
 `;
 const Button = styled.button`
   background: #1c6ea4;
-  border-radius: 2%;
   box-shadow: 2px 4px 10px #1c6ea4;
   color: antiquewhite;
   cursor: pointer;
@@ -104,6 +103,8 @@ class PasswordChangeForm extends Component {
 
     return (
       <Form onSubmit={this.onSubmit}>
+        <h1> Atnaujinti Slaptazodi </h1>
+        <br />
         <Div>
           <Input
             name="passwordOne"

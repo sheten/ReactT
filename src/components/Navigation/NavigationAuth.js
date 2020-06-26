@@ -26,6 +26,8 @@ import "./burger.css";
 
 export default class NavigationAuth extends Component {
   handleChecked = (e) => {
+    const menuBtn = document.querySelector(".menu-btn");
+    menuBtn.classList.remove("open");
     document.getElementById("check").checked = false;
   };
 

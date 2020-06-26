@@ -21,7 +21,6 @@ const Div = styled.div`
 const Input = styled.input`
   background: #1c6ea4;
   border: none;
-  border-radius: 6%;
   color: antiquewhite;
   margin: 5px;
   padding: 0.6vh;
@@ -114,10 +113,12 @@ class SignInFormBase extends Component {
           type="submit"
           style={{
             background: "#1c6ea4",
+            border: "none",
             boxShadow: "1px 2px 5px #1c6ea4",
             color: "antiquewhite",
             cursor: "pointer",
             margin: "5px",
+            padding: "0.6vh",
           }}
         >
           Prisijungti

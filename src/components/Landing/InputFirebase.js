@@ -16,6 +16,9 @@ const Input = styled.input`
   height: 6.5vh;
   width: 10%;
 
+  ::hover {
+    background-color: #1c6ea4;
+  }
   ::placeholder {
     color: #1c6ea4;
     font-size: 2.5vh;

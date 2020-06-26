@@ -38,16 +38,14 @@ class AdminPage extends Component {
     const { users, loading } = this.state;
 
     return (
-      <div style={{ textAlign: "center", marginTop: "5%" }}>
-        <p style={{ fontSize: "5vh", fontWeight: "500", margin: 0 }}>Admin</p>
+      <div style={{ textAlign: "center", marginTop: "3%" }}>
+        <p style={{ fontSize: "5vh", fontWeight: "500", margin: 0 }}>
+          Admino Puslapis
+        </p>
         <hr />
 
         {loading && (
-          <div style={{ marginTop: "5vh" }}>
-            Loading Users...
-            <br />
-            Ideja
-          </div>
+          <div style={{ marginTop: "5vh" }}>Pateikiami Vartotojai...</div>
         )}
 
         <UserList users={users} />

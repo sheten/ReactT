@@ -20,7 +20,7 @@ const H2 = styled.h2`
   text-align: left;
   font-size: 4.3vh;
   font-weight: 600;
-  width: 100vh;
+  width: 100%;
 
   @media only screen and (max-width: 800px) {
     font-size: 3vh;

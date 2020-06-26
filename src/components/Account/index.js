@@ -7,9 +7,9 @@ import { AuthUserContext, withAuthorization } from "../Session";
 const AccountPage = () => (
   <AuthUserContext.Consumer>
     {(authUser) => (
-      <div style={{ textAlign: "center", marginTop: "5%" }}>
+      <div style={{ textAlign: "center", marginTop: "4%" }}>
         <GlobalStyle />
-        <h1>Account: {authUser.email}</h1>
+        <h1 style={{ color: "grey" }}>Account: {authUser.email}</h1>
         <hr />
         <div
           style={{

@@ -80,7 +80,7 @@ const Img = styled.img`
 `;
 
 const SignUpPage = () => (
-  <div style={{ textAlign: "center", marginTop: "5vh", height: "20vh" }}>
+  <div style={{ textAlign: "center", paddingTop: "5vh", height: "20vh" }}>
     <h1 style={{ color: "#1c6ea4", fontSize: "6vh" }}>Registracija</h1>
     <hr style={{ background: "#1c6ea4" }} />
     <SignUpForm />
@@ -103,26 +103,23 @@ class SignUpFormBase extends Component {
   }
 
   onSubmit = (event) => {
+    event.preventDefault();
     const { fullName, email, passwordOne } = this.state;
 
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser) => {
+        this.props.history.push(ROUTES.HOME);
         // Create a user in your Firebase realtime database
         return this.props.firebase.user(authUser.user.uid).set({
           fullName,
           email,
         });
+        this.setState({ ...INITIAL_STATE });
       })
       .catch((error) => {
         this.setState({ error });
-      })
-      .then((authUser) => {
-        this.setState({ ...INITIAL_STATE });
-        this.props.history.push(ROUTES.HOME);
       });
-
-    event.preventDefault();
   };
 
   onChange = (event) => {

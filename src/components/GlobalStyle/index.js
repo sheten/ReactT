@@ -9,13 +9,12 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin: 0;
-    padding: 0;
   }
-  // * {
-  //   background: #000 !important;
-  //   color: #0f0 !important;
-  //   outline: solid #f00 1px !important;
-  // }
+  * {
+    background: #000 !important;
+    color: #0f0 !important;
+    outline: solid #f00 1px !important;
+  }
 `;
 
 export default GlobalStyle;

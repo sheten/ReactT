@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 import { SignUpLink } from "../SignUp";
 import { PasswordForgetLink } from "../PasswordForget";
+import GlobalStyle from "../GlobalStyle";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
 
@@ -40,9 +41,7 @@ const SignInPage = () => (
     }}
   >
     <Div>
-      <h1 style={{ color: "#1c6ea4", flex: 1, fontSize: "7vh" }}>
-        Prisijungti
-      </h1>
+      <h1 style={{ color: "#1c6ea4", flex: 1, fontSize: "7vh" }}>Sign In</h1>
       <div style={{ flex: 2 }}>
         <SignInForm />
         <PasswordForgetLink />
@@ -92,12 +91,13 @@ class SignInFormBase extends Component {
 
     return (
       <form onSubmit={this.onSubmit}>
+        <GlobalStyle />
         <Input
           name="email"
           value={email}
           onChange={this.onChange}
           type="text"
-          placeholder="Email Adresas"
+          placeholder="Email Adress"
         />
         <br />
         <Input
@@ -105,7 +105,7 @@ class SignInFormBase extends Component {
           value={password}
           onChange={this.onChange}
           type="password"
-          placeholder="Slaptazodis"
+          placeholder="Password"
         />
         <br />
         <button
@@ -121,7 +121,7 @@ class SignInFormBase extends Component {
             padding: "0.6vh",
           }}
         >
-          Prisijungti
+          Sign In
         </button>
         <br />
         <br />

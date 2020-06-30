@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-
-import { withFirebase } from "../Firebase";
+import { withAuthorization } from "../Session";
+import GlobalStyle from "../GlobalStyle";
 
 class AdminPage extends Component {
   constructor(props) {
@@ -39,14 +39,13 @@ class AdminPage extends Component {
 
     return (
       <div style={{ textAlign: "center", marginTop: "3%" }}>
+        <GlobalStyle />
         <p style={{ fontSize: "5vh", fontWeight: "500", margin: 0 }}>
-          Admino Puslapis
+          Admin Page
         </p>
         <hr />
 
-        {loading && (
-          <div style={{ marginTop: "5vh" }}>Pateikiami Vartotojai...</div>
-        )}
+        {loading && <div style={{ marginTop: "5vh" }}>Loading Users...</div>}
 
         <UserList users={users} />
       </div>
@@ -72,4 +71,6 @@ const UserList = ({ users }) => (
   </ul>
 );
 
-export default withFirebase(AdminPage);
+const condition = (authUser) => !!authUser;
+
+export default withAuthorization(condition)(AdminPage);

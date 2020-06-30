@@ -9,7 +9,8 @@ const AccountPage = () => (
     {(authUser) => (
       <div style={{ textAlign: "center", marginTop: "4%" }}>
         <GlobalStyle />
-        <h1 style={{ color: "grey" }}>Account: {authUser.email}</h1>
+        <h1 style={{ color: "grey" }}>{authUser.fullName}</h1>
+        <h1 style={{ color: "grey" }}>Email: {authUser.email}</h1>
         <hr />
         <div
           style={{

@@ -6,11 +6,11 @@ import LandingPage from "../Landing";
 import SignUpPage from "../SignUp";
 import SignInPage from "../SignIn";
 import PasswordForgetPage from "../PasswordForget";
-import HomePage from "../Home";
+import Questions from "../Questions";
 import AccountPage from "../Account";
 import AdminPage from "../Admin";
 import Graphics from "../Graphics";
-import QuizzPage from "../Quizz";
+import InsertQuestions from "../InsertQuestions";
 import IntroductionPage from "../Introduction";
 
 import * as ROUTES from "../../constants/routes";
@@ -29,11 +29,11 @@ const App = () => (
         path={ROUTES.PASSWORD_FORGET}
         component={PasswordForgetPage}
       />
-      <Route exact path={ROUTES.QUESTIONS} component={HomePage} />
+      <Route exact path={ROUTES.QUESTIONS} component={Questions} />
       <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route exact path={ROUTES.ADMIN} component={AdminPage} />
       <Route exact path={ROUTES.GRAPHICS} component={Graphics} />
-      <Route exact path={ROUTES.QUIZZ} component={QuizzPage} />
+      <Route exact path={ROUTES.INSERTQUESTIONS} component={InsertQuestions} />
       <Route exact path={ROUTES.INTRODUCTION} component={IntroductionPage} />
     </div>
   </Router>

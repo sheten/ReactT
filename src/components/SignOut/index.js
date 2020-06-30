@@ -10,20 +10,12 @@ const SignOutButton = ({ firebase }) => (
       border: "none",
       background: "none",
       color: "grey",
+      fontFamily: "Libre Baskerville, serif",
       fontSize: "4.5vh",
       fontWeight: 400,
-      // border: "1px inset #1c6ea4",
-      // borderRadius: "8%",
-      // cursor: "pointer",
-      // color: "#1c6ea4",
-      // flex: 1,
-      // fontSize: "2.5vh",
-      // fontWeight: 400,
-      // height: "70%",
-      // justifyContent: "center",
     }}
   >
-    Atsijungti
+    Sign Out
   </button>
 );
 

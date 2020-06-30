@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import InputFirebase from "./InputFirebase";
-import GlobalStyle from "../GlobalStyle";
-
 import { withAuthorization } from "../Session";
 import styled from "styled-components";
+
+import InputFirebase from "./InputFirebase";
+import GlobalStyle from "../GlobalStyle";
+import Questions from "../Questions";
 
 // STYLED-COMPONENTS
 const Pas = styled.p`
@@ -46,7 +47,7 @@ class Landing extends Component {
             width: "88%",
           }}
         >
-          <H2>Užpildykite šiandienos įvertinimą:</H2>
+          <H2>How Was Your Day:</H2>
           <div style={{ height: "50vh", overflow: "auto" }}>
             <Pas>
               1. Ar viską padarei šiandien, nustatydamas konkrečius tikslus?
@@ -65,6 +66,7 @@ class Landing extends Component {
               6. Ar viską padarei šiandien, kad būtum pilnai įsitraukęs į savo
               veiklas?
             </Pas>
+            <Questions />
           </div>
         </div>
 

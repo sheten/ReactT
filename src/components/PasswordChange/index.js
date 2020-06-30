@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 import { withFirebase } from "../Firebase";
+import GlobalStyle from "../GlobalStyle";
 
 // STYLED_CMPONENTS STYLE
 const Form = styled.form`
@@ -103,6 +104,7 @@ class PasswordChangeForm extends Component {
 
     return (
       <Form onSubmit={this.onSubmit}>
+        <GlobalStyle />
         <h1> Atnaujinti Slaptazodi </h1>
         <br />
         <Div>

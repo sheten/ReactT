@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+import GlobalStyle from "../GlobalStyle";
 
 const PasswordForgetPage = () => (
   <div style={{ textAlign: "center", marginTop: "5vh" }}>
-    <h1>PasswordForget</h1>
+    <h1>Forget Password</h1>
     <hr />
     <PasswordForgetForm />
   </div>
@@ -63,6 +64,7 @@ class PasswordForgetFormBase extends Component {
             flex: 1,
           }}
         />
+        <GlobalStyle />
         <button
           disabled={isInvalid}
           type="submit"
@@ -73,7 +75,7 @@ class PasswordForgetFormBase extends Component {
             margin: "5px",
           }}
         >
-          Atstatyti Slaptazodi
+          Change Password
         </button>
 
         {error && <p>{error.message}</p>}
@@ -84,7 +86,7 @@ class PasswordForgetFormBase extends Component {
 
 const PasswordForgetLink = () => (
   <p>
-    <Link to={ROUTES.PASSWORD_FORGET}>Uzmirsai Slaptazodi?</Link>
+    <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
   </p>
 );
 

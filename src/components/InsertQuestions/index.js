@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import { withFirebase } from "../Firebase";
 import styled from "styled-components";
+import { withAuthorization } from "../Session";
+import GlobalStyle from "../GlobalStyle";
 
 // STYLED-COMPONENTS STYLE
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  margin: 4vh auto;
+  text-align: center;
   width: 88%;
 `;
 const Input = styled.input`
@@ -13,7 +16,6 @@ const Input = styled.input`
   border: 2px solid #1c6ea4;
   border-bottom: none;
   flex: 1;
-  font-family: "Libre Baskerville", serif;
   height: 6.5vh;
   width: 10%;
 
@@ -33,96 +35,72 @@ const FormButton = styled.button`
   color: antiquewhite;
   cursor: pointer;
   font-size: 2.5vh;
-  font-family: "Libre Baskerville", serif;
   height: 6.5vh;
 `;
 
-class InputFirebase extends Component {
+class InsertQuestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questions: {},
+      Question: null,
+      Number: null,
     };
   }
 
   onValueChange = (e) => {
-    var questions = this.state.questions;
-    var id = e.target.id;
-    questions[id] = e.target.value;
-
     this.setState({
-      questions: questions,
+      [e.target.id]: e.target.value,
     });
   };
+
   handleSubmit = (e) => {
     e.preventDefault();
     var today = JSON.stringify(new Date());
     var uid = this.props.firebase.auth.currentUser.uid;
+    var kelintas = this.state.Number;
+    console.log(uid);
 
     this.props.firebase.firestore
       .collection("Questions")
       .doc(uid)
-      .collection("Atsakymai")
-      .doc(today)
+      .collection("Klausimai")
+      .doc(kelintas)
       .set({
-        Atsakymai: this.state,
+        Data: today,
+        Klausimas: this.state.Question,
       })
       .then(() => {
-        alert("Siandienos Ivertinimas Uzfiksuotas!");
+        alert("Klausimas Pridetas!");
       });
   };
-
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
+        <GlobalStyle />
+        <h1>Add a Question to the List</h1>
         <div style={{ display: "flex" }}>
           <Input
             required
-            placeholder="1"
+            placeholder="Number"
             type="text"
-            id="Q1"
+            id="Number"
             onChange={this.onValueChange}
+            style={{ flex: 1 }}
           />
           <Input
             required
-            placeholder="2"
+            placeholder="Klausimo Tekstas..."
             type="text"
-            id="Q2"
+            id="Question"
             onChange={this.onValueChange}
-          />
-          <Input
-            required
-            placeholder="3"
-            type="text"
-            id="Q3"
-            onChange={this.onValueChange}
-          />
-          <Input
-            required
-            placeholder="4"
-            type="text"
-            id="Q4"
-            onChange={this.onValueChange}
-          />
-          <Input
-            required
-            placeholder="5"
-            type="text"
-            id="Q5"
-            onChange={this.onValueChange}
-          />
-          <Input
-            required
-            placeholder="6"
-            type="text"
-            id="Q6"
-            onChange={this.onValueChange}
+            style={{ flex: 4 }}
           />
         </div>
-        <FormButton>Submit Answers</FormButton>
+        <FormButton>Add Question</FormButton>
       </Form>
     );
   }
 }
 
-export default withFirebase(InputFirebase);
+const condition = (authUser) => !!authUser;
+export default withAuthorization(condition)(InsertQuestions);

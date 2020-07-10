@@ -42,7 +42,6 @@ const Input = styled.input`
     border-radius: 0;
     flex: 1;
     margin: 0;
-    padding: 0.3vh;
     width: 95%;
   }
 `;
@@ -61,7 +60,6 @@ const Button = styled.button`
     box-shadow: 1px 2px 5px #1c6ea4;
     flex: 1;
     margin: 0;
-    padding: 0.3vh;
     width: 100%;
   }
 `;

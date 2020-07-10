@@ -1,75 +1,50 @@
 import React, { Component } from "react";
 import { withAuthorization } from "../Session";
 import GlobalStyle from "../GlobalStyle";
+import UsersList from "./UsersList";
+import styled from "styled-components";
+
+//Styled-Components Style
+const Div = styled.div`
+  border: 2px groove #1c6ea4;
+  height: 67vh;
+  margin: 0 auto;
+  margin-top: 5vh;
+  overflow-y: auto;
+  width: 80%;
+
+  @media only screen and (max-width: 800px) {
+    width: 90%;
+  }
+`;
 
 class AdminPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      loading: false,
-      users: [],
-    };
-  }
-
-  componentWillUnmount() {
-    this.props.firebase.users().off();
-  }
-
-  componentDidMount() {
-    this.setState({ loading: true });
-
-    this.props.firebase.users().on("value", (snapshot) => {
-      const usersObject = snapshot.val();
-
-      const usersList = Object.keys(usersObject).map((key) => ({
-        ...usersObject[key],
-        uid: key,
-      }));
-
-      this.setState({
-        users: usersList,
-        loading: false,
-      });
-    });
+    this.state = { Info: [] };
   }
 
   render() {
-    const { users, loading } = this.state;
-
     return (
-      <div style={{ textAlign: "center", marginTop: "3%" }}>
+      <div
+        style={{
+          textAlign: "center",
+          marginTop: "3%",
+        }}
+      >
         <GlobalStyle />
         <p style={{ fontSize: "5vh", fontWeight: "500", margin: 0 }}>
           Admin Page
         </p>
         <hr />
-
-        {loading && <div style={{ marginTop: "5vh" }}>Loading Users...</div>}
-
-        <UserList users={users} />
+        <Div>
+          <UsersList />
+        </Div>
       </div>
     );
   }
 }
-
-const UserList = ({ users }) => (
-  <ul>
-    {users.map((user) => (
-      <li key={user.uid}>
-        <span>
-          <strong>ID:</strong> {user.uid}
-        </span>
-        <span>
-          <strong>E-Mail:</strong> {user.email}
-        </span>
-        <span>
-          <strong>Username:</strong> {user.username}
-        </span>
-      </li>
-    ))}
-  </ul>
-);
 
 const condition = (authUser) => !!authUser;
 

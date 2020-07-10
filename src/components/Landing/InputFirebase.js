@@ -56,7 +56,8 @@ class InputFirebase extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    var today = JSON.stringify(new Date());
+    var date = JSON.stringify(new Date());
+    var today = date.substring(1, 11);
     var uid = this.props.firebase.auth.currentUser.uid;
 
     this.props.firebase.firestore
@@ -68,7 +69,7 @@ class InputFirebase extends Component {
         Atsakymai: this.state,
       })
       .then(() => {
-        alert("Siandienos Ivertinimas Uzfiksuotas!");
+        alert("Your Inputs is Saved!");
       });
   };
 

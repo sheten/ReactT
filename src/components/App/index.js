@@ -6,7 +6,6 @@ import LandingPage from "../Landing";
 import SignUpPage from "../SignUp";
 import SignInPage from "../SignIn";
 import PasswordForgetPage from "../PasswordForget";
-import Questions from "../Questions";
 import AccountPage from "../Account";
 import AdminPage from "../Admin";
 import Graphics from "../Graphics";
@@ -29,7 +28,6 @@ const App = () => (
         path={ROUTES.PASSWORD_FORGET}
         component={PasswordForgetPage}
       />
-      <Route exact path={ROUTES.QUESTIONS} component={Questions} />
       <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route exact path={ROUTES.ADMIN} component={AdminPage} />
       <Route exact path={ROUTES.GRAPHICS} component={Graphics} />

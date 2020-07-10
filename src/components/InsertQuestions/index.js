@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import styled from "styled-components";
 import { withAuthorization } from "../Session";
+import * as ROUTES from "../../constants/routes";
 import GlobalStyle from "../GlobalStyle";
+import styled from "styled-components";
 
 // STYLED-COMPONENTS STYLE
 const Form = styled.form`
@@ -43,22 +44,36 @@ class InsertQuestions extends Component {
     super(props);
     this.state = {
       Question: null,
-      Number: null,
+      Number: 7,
     };
   }
 
-  onValueChange = (e) => {
-    this.setState({
-      [e.target.id]: e.target.value,
-    });
-  };
+  componentDidMount() {
+    var uid = this.props.firebase.auth.currentUser.uid;
+
+    var i = 6;
+    var sum = null;
+
+    this.props.firebase.firestore
+      .collection("Questions")
+      .doc(uid)
+      .collection("Klausimai")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach(() => {
+          i++;
+          sum = i + 1 + ". ";
+        });
+
+        this.setState({ Number: sum });
+      });
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
     var today = JSON.stringify(new Date());
     var uid = this.props.firebase.auth.currentUser.uid;
     var kelintas = this.state.Number;
-    console.log(uid);
 
     this.props.firebase.firestore
       .collection("Questions")
@@ -68,11 +83,20 @@ class InsertQuestions extends Component {
       .set({
         Data: today,
         Klausimas: this.state.Question,
+        Number: this.state.Number,
       })
       .then(() => {
         alert("Klausimas Pridetas!");
+        this.props.history.push(ROUTES.HOME);
       });
   };
+
+  onValueChange = (e) => {
+    this.setState({
+      [e.target.id]: e.target.value,
+    });
+  };
+
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
@@ -81,19 +105,10 @@ class InsertQuestions extends Component {
         <div style={{ display: "flex" }}>
           <Input
             required
-            placeholder="Number"
-            type="text"
-            id="Number"
-            onChange={this.onValueChange}
-            style={{ flex: 1 }}
-          />
-          <Input
-            required
-            placeholder="Klausimo Tekstas..."
+            placeholder="Question content..."
             type="text"
             id="Question"
             onChange={this.onValueChange}
-            style={{ flex: 4 }}
           />
         </div>
         <FormButton>Add Question</FormButton>

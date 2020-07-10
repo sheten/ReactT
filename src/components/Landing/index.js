@@ -4,19 +4,9 @@ import styled from "styled-components";
 
 import InputFirebase from "./InputFirebase";
 import GlobalStyle from "../GlobalStyle";
-import Questions from "../Questions";
+import Questions from "./Questions";
 
 // STYLED-COMPONENTS
-const Pas = styled.p`
-  font-size: 3.5vh;
-  font-weight: 400;
-
-  @media only screen and (max-width: 800px) {
-    font-size: 2.2vh;
-    font-weight: 400;
-  }
-`;
-
 const H2 = styled.h2`
   text-align: left;
   font-size: 4.3vh;
@@ -49,23 +39,6 @@ class Landing extends Component {
         >
           <H2>How Was Your Day:</H2>
           <div style={{ height: "50vh", overflow: "auto" }}>
-            <Pas>
-              1. Ar viską padarei šiandien, nustatydamas konkrečius tikslus?
-            </Pas>
-            <Pas>
-              2. Ar viską padarei šiandien, siekdamas konkrečių užsibrėžtų
-              tikslų?
-            </Pas>
-            <Pas>3. Ar viską padarei šiandien, kad diena būtų prasminga?</Pas>
-            <Pas>4. Ar viską padarei šiandien, kad būtum laimingas?</Pas>
-            <Pas>
-              5. Ar viską padarei šiandien, kad užaugintum pozityvius santykius
-              su tave supančiais žmonėmis?
-            </Pas>
-            <Pas>
-              6. Ar viską padarei šiandien, kad būtum pilnai įsitraukęs į savo
-              veiklas?
-            </Pas>
             <Questions />
           </div>
         </div>

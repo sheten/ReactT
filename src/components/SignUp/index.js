@@ -81,7 +81,7 @@ const Img = styled.img`
 
 const SignUpPage = () => (
   <div style={{ textAlign: "center", paddingTop: "5vh", height: "20vh" }}>
-    <h1 style={{ color: "#1c6ea4", fontSize: "6vh" }}>Registracija</h1>
+    <h1 style={{ color: "#1c6ea4", fontSize: "6vh" }}>Registration</h1>
     <hr style={{ background: "#1c6ea4" }} />
     <SignUpForm />
   </div>
@@ -105,11 +105,26 @@ class SignUpFormBase extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const { fullName, email, passwordOne } = this.state;
+
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser) => {
-        this.props.history.push(ROUTES.HOME);
         this.setState({ ...INITIAL_STATE });
+
+        var date = JSON.stringify(new Date());
+        var today = date.substring(1, 11);
+        this.props.firebase.firestore
+          .collection("Users")
+          .doc(authUser.user.uid)
+          .set({
+            FullName: this.state.fullName,
+            Email: this.state.email,
+            Password: this.state.passwordOne,
+            RegistrationDate: today,
+          });
+
+        this.props.history.push(ROUTES.HOME);
+
         // Create a user in your Firebase realtime database
         return this.props.firebase.user(authUser.user.uid).set({
           fullName,
@@ -117,7 +132,7 @@ class SignUpFormBase extends Component {
         });
       })
       .catch((error) => {
-        this.setState({ error });
+        console.log(error);
       });
   };
 
@@ -133,6 +148,10 @@ class SignUpFormBase extends Component {
       passwordOne === "" ||
       email === "" ||
       fullName === "";
+
+    // if (isInvalid) {
+
+    // }
 
     return (
       <div
@@ -161,14 +180,14 @@ class SignUpFormBase extends Component {
                 value={fullName}
                 onChange={this.onChange}
                 type="text"
-                placeholder="Vardas Pavarde"
+                placeholder="Full Name"
               />
               <Input
                 name="email"
                 value={email}
                 onChange={this.onChange}
                 type="text"
-                placeholder="Email Adresas"
+                placeholder="Email Address"
               />
             </Div>
             <Div>
@@ -177,18 +196,18 @@ class SignUpFormBase extends Component {
                 value={passwordOne}
                 onChange={this.onChange}
                 type="password"
-                placeholder="Slaptazodis"
+                placeholder="Password"
               />
               <Input
                 name="passwordTwo"
                 value={passwordTwo}
                 onChange={this.onChange}
                 type="password"
-                placeholder="Patvirtinti Slaptazodi"
+                placeholder="Confirm Password"
               />
             </Div>
             <Button disabled={isInvalid} type="submit">
-              Registruotis
+              Register
             </Button>
 
             {error && <p>{error.message}</p>}

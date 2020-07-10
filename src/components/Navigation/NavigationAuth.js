@@ -59,15 +59,6 @@ export default class NavigationAuth extends Component {
           </li>
           <li>
             <Link
-              to={ROUTES.QUESTIONS}
-              className="nav-Link"
-              onClick={this.handleChecked}
-            >
-              Test Questions
-            </Link>
-          </li>
-          <li>
-            <Link
               to={ROUTES.ADMIN}
               className="nav-Link"
               onClick={this.handleChecked}

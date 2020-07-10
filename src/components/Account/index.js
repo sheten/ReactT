@@ -30,10 +30,12 @@ class AccountPage extends Component {
         {(authUser) => (
           <div style={{ textAlign: "center" }}>
             <GlobalStyle />
-            <h1 style={{ color: "grey", marginTop: "1.5vh" }}>
+            {/* <h1 style={{ color: "grey", marginTop: "1.5vh" }}>
               {this.state.Info}
+            </h1> */}
+            <h1 style={{ color: "grey", margin: "2vh" }}>
+              Email: {authUser.email}
             </h1>
-            <h1 style={{ color: "grey" }}>Email: {authUser.email}</h1>
             <hr />
             <div
               style={{

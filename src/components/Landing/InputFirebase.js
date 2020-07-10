@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
+import InputList from "./InputList";
 import styled from "styled-components";
 
 // STYLED-COMPONENTS STYLE
@@ -119,6 +120,7 @@ class InputFirebase extends Component {
             id="Q6"
             onChange={this.onValueChange}
           />
+          <InputList />
         </div>
         <FormButton>Submit Answers</FormButton>
       </Form>

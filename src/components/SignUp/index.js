@@ -109,8 +109,6 @@ class SignUpFormBase extends Component {
     this.props.firebase
       .doCreateUserWithEmailAndPassword(email, passwordOne)
       .then((authUser) => {
-        this.setState({ ...INITIAL_STATE });
-
         var date = JSON.stringify(new Date());
         var today = date.substring(1, 11);
         this.props.firebase.firestore
@@ -124,6 +122,7 @@ class SignUpFormBase extends Component {
           });
 
         this.props.history.push(ROUTES.HOME);
+        this.setState({ ...INITIAL_STATE });
 
         // Create a user in your Firebase realtime database
         return this.props.firebase.user(authUser.user.uid).set({
@@ -222,7 +221,7 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => (
   <p style={{ color: "black" }}>
-    Neesi uzsiregistraves? <Link to={ROUTES.SIGN_UP}>Uzsiregistruoti</Link>
+    Don't have an account? <Link to={ROUTES.SIGN_UP}>Register</Link>
   </p>
 );
 

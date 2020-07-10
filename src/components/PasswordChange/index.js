@@ -83,6 +83,7 @@ class PasswordChangeForm extends Component {
       .doPasswordUpdate(passwordOne)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
+        alert("Password Changed!");
       })
       .catch((error) => {
         this.setState({ error });
@@ -103,7 +104,7 @@ class PasswordChangeForm extends Component {
     return (
       <Form onSubmit={this.onSubmit}>
         <GlobalStyle />
-        <h1> Atnaujinti Slaptazodi </h1>
+        <h1> Change Password </h1>
         <br />
         <Div>
           <Input
@@ -111,18 +112,18 @@ class PasswordChangeForm extends Component {
             value={passwordOne}
             onChange={this.onChange}
             type="password"
-            placeholder="Naujas Slaptazodis"
+            placeholder="New Password"
           />
           <Input
             name="passwordTwo"
             value={passwordTwo}
             onChange={this.onChange}
             type="password"
-            placeholder="Patvirtinti Slaptazodi"
+            placeholder="Confirm Password"
           />
         </Div>
         <Button disabled={isInvalid} type="submit">
-          Atnaujinti Slaptazodi
+          Change Password
         </Button>
 
         {error && <p>{error.message}</p>}

@@ -44,14 +44,18 @@ class InsertQuestions extends Component {
     super(props);
     this.state = {
       Question: null,
-      Number: 7,
+      Number: "7.",
+      Document: 1,
     };
   }
 
   componentDidMount() {
+    console.log("mounted");
     var uid = this.props.firebase.auth.currentUser.uid;
 
-    var i = 6;
+    var u = 1;
+    var doc = null;
+    var i = 7;
     var sum = null;
 
     this.props.firebase.firestore
@@ -61,11 +65,24 @@ class InsertQuestions extends Component {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach(() => {
+          console.log(i);
+          u++;
+          doc = u + ". ";
           i++;
-          sum = i + 1 + ". ";
+          sum = i + ". ";
+          console.log(sum);
         });
 
-        this.setState({ Number: sum });
+        if (sum) {
+          this.setState({ Number: sum });
+          this.setState({ Document: doc });
+        } else {
+          console.log("unkown");
+          sum = 7 + ". ";
+          this.setState({ Number: sum });
+          doc = 1 + ". ";
+          this.setState({ Document: doc });
+        }
       });
   }
 
@@ -73,7 +90,11 @@ class InsertQuestions extends Component {
     e.preventDefault();
     var today = JSON.stringify(new Date());
     var uid = this.props.firebase.auth.currentUser.uid;
-    var kelintas = this.state.Number;
+    var kelintas = this.state.Document;
+
+    console.log(kelintas);
+    console.log(this.state.Number);
+    console.log(this.state.Question);
 
     this.props.firebase.firestore
       .collection("Questions")
@@ -92,6 +113,7 @@ class InsertQuestions extends Component {
   };
 
   onValueChange = (e) => {
+    console.log(e.target.value);
     this.setState({
       [e.target.id]: e.target.value,
     });

@@ -1,13 +1,14 @@
 .barDiv {
-  background-color: rgb(231, 187, 128);
+  background-color: rgb(230, 218, 203);
   height: 50vh;
   overflow-x: visible;
   padding: 0 5vh 7vh 5vh;
+  margin: 5vh auto;
   width: 80%;
 }
 .bar {
   border: 1px solid antiquewhite;
-  background-color: red;
+  background-color: #1c6ea4;
   height: 100%;
   overflow-x: scroll;
   padding-left: 6vh;

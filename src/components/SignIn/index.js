@@ -22,6 +22,7 @@ const Input = styled.input`
   background: #1c6ea4;
   border: none;
   color: antiquewhite;
+  cursor: pointer;
   margin: 5px;
   padding: 0.6vh;
 

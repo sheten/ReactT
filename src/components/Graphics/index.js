@@ -61,7 +61,7 @@ class Graphs extends Component {
         //Kodel cia 7, o kiti skiaciia netinka?
       })
       .attr("width", 50)
-      .attr("height", (data, i) => 7 * data)
+      .attr("height", (data, i) => 8 * data)
       //Kodel cia 7, o kiti skiaciia netinka?
       .append("title")
       .text((data) => data);
@@ -89,7 +89,9 @@ class Graphs extends Component {
     } else {
       return (
         <div ref="barChart" className="barDiv">
-          <h1 style={{ textAlign: "center" }}>Hi, I'm the bar chart</h1>
+          <h1 style={{ textAlign: "center" }}>
+            Current submitted data visualisation
+          </h1>
         </div>
       );
     }

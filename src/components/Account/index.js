@@ -18,7 +18,7 @@ class AccountPage extends Component {
       .doc(uid)
       .get()
       .then((doc) => {
-        var data = doc.data();
+        // var data = doc.data();
         // var fullName = data.Email;
         this.setState({ Info: "fullName" });
       });

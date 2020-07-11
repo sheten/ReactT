@@ -57,7 +57,6 @@ class AdminPage extends Component {
 
   componentDidMount() {
     var vip = [];
-    var uid = this.props.firebase.auth.currentUser.uid;
     this.props.firebase.firestore
       .collection("Users")
       .get()

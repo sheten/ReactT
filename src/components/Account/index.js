@@ -18,9 +18,10 @@ class AccountPage extends Component {
       .doc(uid)
       .get()
       .then((doc) => {
-        // var data = doc.data();
-        // var fullName = data.Email;
-        this.setState({ Info: "fullName" });
+        var ats = doc.data();
+        console.log(ats);
+        var fullName = ats.FullName;
+        this.setState({ Info: fullName });
       });
   }
 
@@ -30,9 +31,9 @@ class AccountPage extends Component {
         {(authUser) => (
           <div style={{ textAlign: "center" }}>
             <GlobalStyle />
-            {/* <h1 style={{ color: "grey", marginTop: "1.5vh" }}>
+            <h1 style={{ color: "grey", marginTop: "1.5vh" }}>
               {this.state.Info}
-            </h1> */}
+            </h1>
             <h1 style={{ color: "grey", margin: "2vh" }}>
               Email: {authUser.email}
             </h1>

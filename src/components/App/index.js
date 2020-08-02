@@ -11,6 +11,7 @@ import AdminPage from "../Admin";
 import Graphics from "../Graphics";
 import InsertQuestions from "../InsertQuestions";
 import IntroductionPage from "../Introduction";
+import Pool from "../Pool";
 
 import * as ROUTES from "../../constants/routes";
 import { withAuthentication } from "../Session";
@@ -33,6 +34,7 @@ const App = () => (
       <Route exact path={ROUTES.GRAPHICS} component={Graphics} />
       <Route exact path={ROUTES.INSERTQUESTIONS} component={InsertQuestions} />
       <Route exact path={ROUTES.INTRODUCTION} component={IntroductionPage} />
+      <Route exact path={ROUTES.POOL} component={Pool} />
     </div>
   </Router>
 );

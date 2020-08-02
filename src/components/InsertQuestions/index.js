@@ -3,6 +3,7 @@ import { withAuthorization } from "../Session";
 import * as ROUTES from "../../constants/routes";
 import GlobalStyle from "../GlobalStyle";
 import styled from "styled-components";
+import Swal from "sweetalert2";
 
 // STYLED-COMPONENTS STYLE
 const Form = styled.form`
@@ -50,7 +51,6 @@ class InsertQuestions extends Component {
   }
 
   componentDidMount() {
-    console.log("mounted");
     var uid = this.props.firebase.auth.currentUser.uid;
 
     var u = 1;
@@ -65,19 +65,16 @@ class InsertQuestions extends Component {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach(() => {
-          console.log(i);
           u++;
           doc = u + ". ";
           i++;
           sum = i + ". ";
-          console.log(sum);
         });
 
         if (sum) {
           this.setState({ Number: sum });
           this.setState({ Document: doc });
         } else {
-          console.log("unkown");
           sum = 7 + ". ";
           this.setState({ Number: sum });
           doc = 1 + ". ";
@@ -92,10 +89,6 @@ class InsertQuestions extends Component {
     var uid = this.props.firebase.auth.currentUser.uid;
     var kelintas = this.state.Document;
 
-    console.log(kelintas);
-    console.log(this.state.Number);
-    console.log(this.state.Question);
-
     this.props.firebase.firestore
       .collection("Questions")
       .doc(uid)
@@ -107,7 +100,7 @@ class InsertQuestions extends Component {
         Number: this.state.Number,
       })
       .then(() => {
-        alert("Klausimas Pridetas!");
+        Swal.fire("Question Added!", "Good Luck with it :)", "success");
         this.props.history.push(ROUTES.HOME);
       });
   };

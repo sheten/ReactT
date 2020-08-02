@@ -3,61 +3,55 @@ import { withAuthorization } from "../Session";
 import styled from "styled-components";
 
 // STYLED-COMPONENTS
-const Pas = styled.p`
+const Input = styled.input`
+  background: #fffafa;
+  border: 2px solid #1c6ea4;
+  display: inline-block;
   font-family: "Libre Baskerville", serif;
-  font-size: 3.5vh;
-  font-weight: 400;
+  height: 6.5vh;
+  margin: 0 0.1vh 0.15vh 0.1vh;
+  width: 16%;
 
-  @media only screen and (max-width: 800px) {
-    font-size: 2.2vh;
-    font-weight: 400;
+  ::hover {
+    background-color: #1c6ea4;
   }
+  ::placeholder {
+    color: #1c6ea4;
+    font-size: 2.5vh;
+    text-align: center;
+  }
+  ::placeholdertextcolor: "red";
 `;
 
 class InputList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { addedKlausimai: [] };
-  }
+  onValueChange = (e) => {
+    var value = e.target.value;
+    var id = e.target.id;
 
-  componentDidMount() {
-    this.addedKlausimai();
-  }
+    console.log(e.target.value);
 
-  addedKlausimai = () => {
-    var core = [];
-    this.props.firebase.firestore
-      .collection("Questions")
-      .doc("CoreQuestions")
-      .collection("CoreQuestions")
-      .get()
-      .then((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          core.push(doc.data());
-        });
-        console.log(core);
-
-        var uid = this.props.firebase.auth.currentUser.uid;
-        this.props.firebase.firestore
-          .collection("Questions")
-          .doc(uid)
-          .collection("Klausimai")
-          // .doc()
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              core.push(doc.data());
-            });
-            this.setState({ addedKlausimai: core });
-            console.log(core);
-          });
-      });
+    this.props.checkChange(id, value);
   };
 
   render() {
-    return this.state.addedKlausimai.map((question) => (
-      <Pas key={question.Klausimas}></Pas>
-    ));
+    var i = 0;
+
+    return this.props.questionsList.map((question) => {
+      i++;
+      var id = i;
+
+      return (
+        <Input
+          required
+          key={question.Klausimas}
+          className="window"
+          placeholder={id}
+          type="text"
+          id={"Q" + id}
+          onChange={this.onValueChange}
+        />
+      );
+    });
   }
 }
 

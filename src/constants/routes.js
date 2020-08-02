@@ -8,3 +8,4 @@ export const INSERTQUESTIONS = "/InsertQuestions";
 export const INTRODUCTION = "/introduction";
 export const ADMIN = "/admin";
 export const PASSWORD_FORGET = "/pw-forget";
+export const POOL = "/pool";

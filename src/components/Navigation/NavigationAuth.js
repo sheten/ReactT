@@ -50,6 +50,15 @@ export default class NavigationAuth extends Component {
         <ul>
           <li>
             <Link
+              to={ROUTES.POOL}
+              className="nav-Link"
+              onClick={this.handleChecked}
+            >
+              Pool
+            </Link>
+          </li>
+          <li>
+            <Link
               to={ROUTES.GRAPHICS}
               className="nav-Link"
               onClick={this.handleChecked}

@@ -7,19 +7,13 @@ import styled from "styled-components";
 const Div = styled.div`
   border-bottom: 1px solid grey;
   display; flex;
-  flex-direction:
   flex-direction: column-reverse;
-  height: 25vh;
+  height: 10vh;
   margin: 1vh 0 1vh 0;
 
   &:last-child {
     border: none;
     margin-bottom: 0;
-  }
-  
-
-  @media only screen and (max-width: 800px) {
-    height: 20vh;
   }
 `;
 const Divas = styled.div`
@@ -48,7 +42,7 @@ const V = styled.div`
   }
 `;
 
-class AdminPage extends Component {
+class Pool extends Component {
   constructor(props) {
     super(props);
 
@@ -67,6 +61,23 @@ class AdminPage extends Component {
         this.setState({ Info: vip });
       });
   }
+  onClick(email, name, userid) {
+    var uid = this.props.firebase.auth.currentUser.uid;
+    var date = JSON.stringify(new Date());
+    var today = date.substring(1, 11);
+
+    this.props.firebase.firestore
+      .collection("Questions")
+      .doc(uid)
+      .collection("Members")
+      .doc(email)
+      .set({
+        Email: email,
+        FullName: name,
+        UserID: userid,
+        Date: today,
+      });
+  }
 
   render() {
     return this.state.Info.map((user) => (
@@ -82,25 +93,17 @@ class AdminPage extends Component {
 
           <Span>
             <V>
-              <strong>Password:</strong>
-            </V>
-            {user.Password}
-          </Span>
-        </Divas>
-        <Divas>
-          <Span>
-            <V>
               <strong>Email:</strong>
             </V>
             {user.Email}
           </Span>
-
-          <Span>
-            <V>
-              <strong>Registration Date:</strong>
-            </V>
-            {user.RegistrationDate}
-          </Span>
+          <input
+            onClick={() => this.onClick(user.Email, user.FullName, user.UserID)}
+            type="checkbox"
+            style={{
+              marginRight: "2vh",
+            }}
+          />
         </Divas>
       </Div>
     ));
@@ -109,4 +112,4 @@ class AdminPage extends Component {
 
 const condition = (authUser) => !!authUser;
 
-export default withAuthorization(condition)(AdminPage);
+export default withAuthorization(condition)(Pool);

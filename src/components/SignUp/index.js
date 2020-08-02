@@ -6,6 +6,7 @@ import Hello from "./helloA.svg";
 import { withFirebase } from "../Firebase";
 import styled from "styled-components";
 import * as ROUTES from "../../constants/routes";
+import Swal from "sweetalert2";
 
 // STYLED_CMPONENTS STYLE
 const Form = styled.form`
@@ -92,7 +93,6 @@ const INITIAL_STATE = {
   email: "",
   passwordOne: "",
   passwordTwo: "",
-  error: null,
 };
 
 class SignUpFormBase extends Component {
@@ -104,35 +104,55 @@ class SignUpFormBase extends Component {
 
   onSubmit = (event) => {
     event.preventDefault();
-    const { fullName, email, passwordOne } = this.state;
 
-    this.props.firebase
-      .doCreateUserWithEmailAndPassword(email, passwordOne)
-      .then((authUser) => {
-        var date = JSON.stringify(new Date());
-        var today = date.substring(1, 11);
-        this.props.firebase.firestore
-          .collection("Users")
-          .doc(authUser.user.uid)
-          .set({
-            FullName: this.state.fullName,
-            Email: this.state.email,
-            Password: this.state.passwordOne,
-            RegistrationDate: today,
-          });
-
-        this.props.history.push(ROUTES.HOME);
-        this.setState({ ...INITIAL_STATE });
-
-        // Create a user in your Firebase realtime database
-        return this.props.firebase.user(authUser.user.uid).set({
-          fullName,
-          email,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
+    if (this.state.passwordOne !== this.state.passwordTwo) {
+      Swal.fire({
+        title: "Error!",
+        text: "Your passwords do not match",
+        icon: "error",
+        confirmButtonText: "Okey",
       });
+    } else if (this.state.fullName === "") {
+      Swal.fire({
+        title: "Error!",
+        text: "Insert Your Full Name Correctly",
+        icon: "error",
+        confirmButtonText: "Okey",
+      });
+    } else {
+      const { fullName, email, passwordOne } = this.state;
+
+      this.props.firebase
+        .doCreateUserWithEmailAndPassword(email, passwordOne)
+        .then((authUser) => {
+          var date = JSON.stringify(new Date());
+          var today = date.substring(1, 11);
+
+          this.props.firebase.firestore
+            .collection("Users")
+            .doc(authUser.user.uid)
+            .set({
+              FullName: this.state.fullName,
+              Email: this.state.email,
+              Password: this.state.passwordOne,
+              UserID: authUser.user.uid,
+              RegistrationDate: today,
+            });
+
+          this.setState({ ...INITIAL_STATE });
+          this.props.history.push(ROUTES.HOME);
+
+          // Create a user in your Firebase realtime database
+          return this.props.firebase.user(authUser.user.uid).set({
+            fullName,
+            email,
+          });
+        })
+        .catch((error) => {
+          this.setState({ error });
+          console.log(error);
+        });
+    }
   };
 
   onChange = (event) => {
@@ -140,17 +160,7 @@ class SignUpFormBase extends Component {
   };
 
   render() {
-    const { fullName, email, passwordOne, passwordTwo, error } = this.state;
-
-    const isInvalid =
-      passwordOne !== passwordTwo ||
-      passwordOne === "" ||
-      email === "" ||
-      fullName === "";
-
-    // if (isInvalid) {
-
-    // }
+    const { fullName, email, passwordOne, passwordTwo } = this.state;
 
     return (
       <div
@@ -177,6 +187,7 @@ class SignUpFormBase extends Component {
               <Input
                 name="fullName"
                 value={fullName}
+                className="name"
                 onChange={this.onChange}
                 type="text"
                 placeholder="Full Name"
@@ -193,6 +204,7 @@ class SignUpFormBase extends Component {
               <Input
                 name="passwordOne"
                 value={passwordOne}
+                className="wrong"
                 onChange={this.onChange}
                 type="password"
                 placeholder="Password"
@@ -200,16 +212,15 @@ class SignUpFormBase extends Component {
               <Input
                 name="passwordTwo"
                 value={passwordTwo}
+                className="wrong"
                 onChange={this.onChange}
                 type="password"
                 placeholder="Confirm Password"
               />
             </Div>
-            <Button disabled={isInvalid} type="submit">
-              Register
-            </Button>
+            <Button type="submit">Register</Button>
 
-            {error && <p>{error.message}</p>}
+            {/* {error && <p>{error.message}</p>} */}
           </Form>
         </div>
 

@@ -67,7 +67,7 @@ const Button = styled.button`
     flex: 1;
     margin: 0.3vh;
     margin-top: 0.7vh !important;
-    padding: 0.5vh;
+    padding: 1.2vh;
     width: 98%;
   }
 `;
@@ -107,20 +107,37 @@ class SignUpFormBase extends Component {
 
     if (this.state.passwordOne !== this.state.passwordTwo) {
       Swal.fire({
-        title: "Error!",
+        title: "",
         text: "Your passwords do not match",
         icon: "error",
         confirmButtonText: "Okey",
       });
     } else if (this.state.fullName === "") {
       Swal.fire({
-        title: "Error!",
+        title: "",
         text: "Insert Your Full Name Correctly",
         icon: "error",
         confirmButtonText: "Okey",
       });
     } else {
       const { fullName, email, passwordOne } = this.state;
+      // var array = [
+      //   "1. Ar viską padarei šiandien, nustatydamas konkrečius tikslus?",
+      //   "2. Ar viską padarei šiandien, siekdamas konkrečių užsibrėžtų tikslų?",
+      //   "3. Ar viską padarei šiandien, kad diena būtų prasminga?",
+      // ];
+      // for (var i = 0; i < 2; i++) {
+      //   var doc = i + "a";
+      //   var ats = array[i];
+      //   this.props.firebase.firestore
+      //     .collection("Questions")
+      //     .doc("test")
+      //     .collection("Klausimai")
+      //     .doc(doc)
+      //     .set({
+      //       Klausimas: ats,
+      //     });
+      // }
 
       this.props.firebase
         .doCreateUserWithEmailAndPassword(email, passwordOne)
@@ -160,7 +177,7 @@ class SignUpFormBase extends Component {
   };
 
   render() {
-    const { fullName, email, passwordOne, passwordTwo } = this.state;
+    const { fullName, email, passwordOne, passwordTwo, error } = this.state;
 
     return (
       <div
@@ -220,7 +237,7 @@ class SignUpFormBase extends Component {
             </Div>
             <Button type="submit">Register</Button>
 
-            {/* {error && <p>{error.message}</p>} */}
+            {error && <p>{error.message}</p>}
           </Form>
         </div>
 

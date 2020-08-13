@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withFirebase } from "../Firebase";
-import InputList from "./InputList";
 import styled from "styled-components";
+import InputList from "./InputList";
 import Swal from "sweetalert2";
 
 // STYLED-COMPONENTS STYLE
@@ -13,7 +13,7 @@ const Form = styled.form`
 `;
 const FormButton = styled.button`
   background: #1c6ea4;
-  border: 2px inset black;
+  border: 2px inset rgb(66, 61, 61);
   color: antiquewhite;
   cursor: pointer;
   font-size: 2.5vh;
@@ -94,12 +94,9 @@ class InputFirebase extends Component {
   }
   sendResults(latestPastResults, user, number, documentDate) {
     var inputAnswers = Object.values(this.answers);
-    console.log(latestPastResults);
-    console.log(inputAnswers);
     var sum = latestPastResults.map(function (num, i) {
       return +inputAnswers[i] + +num;
     });
-    console.log(sum);
 
     this.props.firebase.firestore
       .collection("Questions")

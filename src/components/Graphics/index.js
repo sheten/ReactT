@@ -19,7 +19,7 @@ const Box = styled.select`
 class Graphs extends Component {
   constructor(props) {
     super(props);
-    this.state = { List: [], questions: [], User: "user", array: [] };
+    this.state = { List: [], questions: [], User: "", array: [] };
   }
 
   componentDidMount() {
@@ -41,31 +41,25 @@ class Graphs extends Component {
     this.questionsList();
   }
 
-  questionsList = () => {
+  questionsList = (member) => {
     var core = [];
+
+    if (member) {
+      var user = member;
+    } else {
+      user = this.props.firebase.auth.currentUser.uid;
+    }
+
     this.props.firebase.firestore
       .collection("Questions")
-      .doc("CoreQuestions")
-      .collection("CoreQuestions")
+      .doc(user)
+      .collection("Klausimai")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           core.push(doc.data());
         });
-        var uid = this.state.User;
-
-        this.props.firebase.firestore
-          .collection("Questions")
-          .doc(uid)
-          .collection("Klausimai")
-          // .doc()
-          .get()
-          .then((querySnapshot) => {
-            querySnapshot.forEach((doc) => {
-              core.push(doc.data());
-            });
-            this.setState({ questions: core });
-          });
+        this.setState({ questions: core });
         this.averageList();
       });
   };
@@ -93,7 +87,6 @@ class Graphs extends Component {
           );
           var number = parseInt(pastResults[pastResults.length - 1]["Number"]);
 
-          console.log(number);
           var results = [];
           latestPastResults.forEach((num) => {
             var average = num / number;
@@ -106,7 +99,7 @@ class Graphs extends Component {
   }
   handleChange = (event) => {
     this.setState({ User: event.target.value });
-    this.questionsList();
+    this.questionsList(event.target.value);
   };
   render() {
     return (

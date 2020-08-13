@@ -78,10 +78,10 @@ class Pool extends Component {
         Date: today,
       });
   }
-
+  // klausimai horzontaliai ir dewlete add pagr lentoj apacioje
   render() {
     return this.state.Info.map((user) => (
-      <Div key={user.FullName}>
+      <Div key={user.Email}>
         <GlobalStyle />
         <Divas>
           <Span>

@@ -7,7 +7,7 @@ import GlobalStyle from "../GlobalStyle";
 
 const PasswordForgetPage = () => (
   <div style={{ textAlign: "center", marginTop: "5vh" }}>
-    <h1>Forget Password</h1>
+    <h1>Forgot Password</h1>
     <hr />
     <PasswordForgetForm />
   </div>
@@ -56,12 +56,13 @@ class PasswordForgetFormBase extends Component {
           value={this.state.email}
           onChange={this.onChange}
           type="text"
-          placeholder="Email Adresas"
+          placeholder="Insert Email Adresas"
           style={{
             background: "none",
             border: "2px inset #1c6ea4",
             color: "#1c6ea4",
             flex: 1,
+            padding: "1vh",
           }}
         />
         <GlobalStyle />
@@ -72,7 +73,9 @@ class PasswordForgetFormBase extends Component {
             background: "none",
             border: "2px inset #1c6ea4",
             color: "#1c6ea4",
+            cursor: "pointer",
             margin: "5px",
+            padding: "1vh",
           }}
         >
           Change Password

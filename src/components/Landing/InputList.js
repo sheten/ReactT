@@ -3,10 +3,14 @@ import { withAuthorization } from "../Session";
 import styled from "styled-components";
 
 // STYLED-COMPONENTS
+const Div = styled.div`
+  display: flex;
+`;
 const Input = styled.input`
   background: #fffafa;
   border: 2px solid #1c6ea4;
   display: inline-block;
+  flex: 1;
   font-family: "Libre Baskerville", serif;
   height: 6.5vh;
   margin: 0 0.1vh 0.15vh 0.1vh;
@@ -21,6 +25,18 @@ const Input = styled.input`
     text-align: center;
   }
   ::placeholdertextcolor: "red";
+`;
+const Pas = styled.p`
+  flex: 9;
+  font-family: "Libre Baskerville", serif;
+  font-size: 3.5vh;
+  font-weight: 400;
+
+  @media only screen and (max-width: 800px) {
+    flex: 6;
+    font-size: 2.2vh;
+    font-weight: 400;
+  }
 `;
 
 class InputList extends Component {
@@ -41,15 +57,19 @@ class InputList extends Component {
       var id = i;
 
       return (
-        <Input
-          required
-          key={question.Klausimas}
-          className="window"
-          placeholder={id}
-          type="text"
-          id={"Q" + id}
-          onChange={this.onValueChange}
-        />
+        <Div key={question.Klausimas}>
+          <Pas>
+            {question.Number} {question.Klausimas}
+          </Pas>
+          <Input
+            required
+            className="window"
+            placeholder={id}
+            type="text"
+            id={"Q" + id}
+            onChange={this.onValueChange}
+          />
+        </Div>
       );
     });
   }

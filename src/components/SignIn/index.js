@@ -7,6 +7,7 @@ import { PasswordForgetLink } from "../PasswordForget";
 import GlobalStyle from "../GlobalStyle";
 import { withFirebase } from "../Firebase";
 import * as ROUTES from "../../constants/routes";
+import Swal from "sweetalert2";
 
 const Div = styled.div`
   align-items: center;
@@ -54,7 +55,6 @@ const SignInPage = () => (
 const INITIAL_STATE = {
   email: "",
   password: "",
-  error: null,
 };
 
 class SignInFormBase extends Component {
@@ -74,7 +74,7 @@ class SignInFormBase extends Component {
         this.props.history.push(ROUTES.HOME);
       })
       .catch((error) => {
-        this.setState({ error });
+        Swal.fire("", error.message, "error");
       });
 
     event.preventDefault();
@@ -85,7 +85,7 @@ class SignInFormBase extends Component {
   };
 
   render() {
-    const { email, password, error } = this.state;
+    const { email, password } = this.state;
 
     const isInvalid = password === "" || email === "";
 
@@ -126,7 +126,7 @@ class SignInFormBase extends Component {
         <br />
         <br />
 
-        {error && <p>{error.message}</p>}
+        {/* {error && <p>{error.message}</p>} */}
       </form>
     );
   }

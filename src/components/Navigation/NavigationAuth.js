@@ -24,7 +24,11 @@ export default class NavigationAuth extends Component {
   };
   render() {
     return (
-      <nav className="sticky" id="navbar" style={{ zIndex: 1 }}>
+      <nav
+        className="sticky"
+        id="navbar"
+        style={{ zIndex: 1, boxShadow: "0 4px 2px -2px gray" }}
+      >
         <input type="checkbox" id="check" />
 
         <label className="checkbtn" htmlFor="check">
@@ -82,16 +86,6 @@ export default class NavigationAuth extends Component {
               onClick={this.handleChecked}
             >
               Profile
-            </Link>
-          </li>
-
-          <li>
-            <Link
-              to={ROUTES.INSERTQUESTIONS}
-              className="nav-Link"
-              onClick={this.handleChecked}
-            >
-              Add Question
             </Link>
           </li>
 

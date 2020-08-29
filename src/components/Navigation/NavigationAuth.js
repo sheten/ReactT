@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
-import SignOutButton from "../SignOut";
 import * as ROUTES from "../../constants/routes";
+import { withAuthorization } from "../Session";
+
+import SignOutButton from "../SignOut";
 
 import LogoB from "./LogoB.png";
 import "./burger.css";
 
-export default class NavigationAuth extends Component {
+class NavigationAuth extends Component {
   handleChecked = () => {
     const menuBtn = document.querySelector(".menu-btn");
     menuBtn.classList.remove("open");
@@ -22,108 +24,165 @@ export default class NavigationAuth extends Component {
       menuBtn.classList.add("open");
     }
   };
+
   render() {
-    return (
-      <nav
-        className="sticky"
-        id="navbar"
-        style={{ zIndex: 1, boxShadow: "0 4px 2px -2px gray" }}
-      >
-        <input type="checkbox" id="check" />
+    if (this.props.firebase.auth.currentUser.uid == null) {
+      console.log("Offline");
+    } else if (
+      this.props.firebase.auth.currentUser.uid ===
+        "09Teh7itY9PN7Nd4SyPJtgCsiNo2" &&
+      "PVnxezLAV3OnFCDYuSKbmTWS0cn2"
+    ) {
+      // Show to Admins
+      return (
+        <nav
+          className="sticky"
+          id="navbar"
+          style={{ zIndex: 1, boxShadow: "0 4px 2px -2px gray" }}
+        >
+          <input type="checkbox" id="check" />
 
-        <label className="checkbtn" htmlFor="check">
-          <div
-            id="Hamburger"
-            className="menu-btn"
-            onClick={this.handleBurgerClick}
-          >
-            <div className="menu-btn_burger"></div>
-          </div>
-        </label>
+          <label className="checkbtn" htmlFor="check">
+            <div
+              id="Hamburger"
+              className="menu-btn"
+              onClick={this.handleBurgerClick}
+            >
+              <div className="menu-btn_burger"></div>
+            </div>
+          </label>
 
-        <Link to={ROUTES.HOME}>
-          <img
-            alt="logoImage"
-            style={{ height: "90%", margin: "auto 4vh" }}
-            src={LogoB}
-            size="small"
-            onClick={this.handleChecked}
-          />
-        </Link>
+          <Link to={ROUTES.HOME}>
+            <img
+              alt="logoImage"
+              style={{ height: "90%", margin: "auto 4vh" }}
+              src={LogoB}
+              size="small"
+              onClick={this.handleChecked}
+            />
+          </Link>
 
-        <ul>
-          <li>
-            <Link
-              to={ROUTES.POOL}
-              className="nav-Link"
-              onClick={this.handleChecked}
-            >
-              Pool
-            </Link>
-          </li>
-          <li>
-            <Link
-              to={ROUTES.GRAPHICS}
-              className="nav-Link"
-              onClick={this.handleChecked}
-            >
-              Graphics
-            </Link>
-          </li>
-          <li>
-            <Link
-              to={ROUTES.ADMIN}
-              className="nav-Link"
-              onClick={this.handleChecked}
-            >
-              Admin
-            </Link>
-          </li>
-          <li>
-            <Link
-              to={ROUTES.ACCOUNT}
-              className="nav-Link"
-              onClick={this.handleChecked}
-            >
-              Profile
-            </Link>
-          </li>
+          <ul>
+            <li>
+              <Link
+                to={ROUTES.POOL}
+                className="nav-Link"
+                onClick={this.handleChecked}
+              >
+                Pool
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={ROUTES.MONTHLYGRAPHS}
+                className="nav-Link"
+                onClick={this.handleChecked}
+              >
+                Monthly Graphs
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={ROUTES.WEEKLYGRAPHS}
+                className="nav-Link"
+                onClick={this.handleChecked}
+              >
+                Weekly Graphs
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={ROUTES.ADMIN}
+                className="nav-Link"
+                onClick={this.handleChecked}
+              >
+                Admin
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={ROUTES.ACCOUNT}
+                className="nav-Link"
+                onClick={this.handleChecked}
+              >
+                Profile
+              </Link>
+            </li>
 
-          <li>
-            <SignOutButton />
-          </li>
-        </ul>
-      </nav>
-    );
+            <li>
+              <SignOutButton />
+            </li>
+          </ul>
+        </nav>
+      );
+    } else {
+      // Show to All users
+      return (
+        <nav
+          className="sticky"
+          id="navbar"
+          style={{ zIndex: 1, boxShadow: "0 4px 2px -2px gray" }}
+        >
+          <input type="checkbox" id="check" />
+
+          <label className="checkbtn" htmlFor="check">
+            <div
+              id="Hamburger"
+              className="menu-btn"
+              onClick={this.handleBurgerClick}
+            >
+              <div className="menu-btn_burger"></div>
+            </div>
+          </label>
+
+          <Link to={ROUTES.HOME}>
+            <img
+              alt="logoImage"
+              style={{ height: "90%", margin: "auto 4vh" }}
+              src={LogoB}
+              size="small"
+              onClick={this.handleChecked}
+            />
+          </Link>
+
+          <ul>
+            <li>
+              <Link
+                to={ROUTES.ACCOUNT}
+                className="nav-Link"
+                onClick={this.handleChecked}
+              >
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={ROUTES.MONTHLYGRAPHS}
+                className="nav-Link"
+                onClick={this.handleChecked}
+              >
+                Monthly Graphs
+              </Link>
+            </li>
+            <li>
+              <Link
+                to={ROUTES.WEEKLYGRAPHS}
+                className="nav-Link"
+                onClick={this.handleChecked}
+              >
+                Weekly Graphs
+              </Link>
+            </li>
+            <li>
+              <SignOutButton />
+            </li>
+          </ul>
+        </nav>
+      );
+    }
   }
 }
-//   <Navbaras>
-//   <Link to={ROUTES.HOME}>
-//     <img
-//       alt="logoImage"
-//       style={{ height: "90%", margin: "auto 4vh" }}
-//       src={LogoB}
-//       size="small"
-//     />
-//   </Link>
-//     <div
-//       style={{
-//         alignItems: "center",
-//         display: "flex",
-//         float: "right",
-//         marginRight: "2vh",
-//         width: "35%",
-//       }}
-//     >
-//       <NavbarasChild>
-//         <Link to={ROUTES.QUESTIONS}>Questions</Link>
-//       </NavbarasChild>
-//       <NavbarasChild>
-//         <Link to={ROUTES.ACCOUNT}>Account</Link>
-//       </NavbarasChild>
-//       <NavbarasChild>
-//         <Link to={ROUTES.ADMIN}>Admin</Link>
-//       </NavbarasChild>
-//       <SignOutButton />
-//     </div>
-//   </Navbaras>
+
+const condition = (authUser) => !!authUser;
+
+export default withAuthorization(condition)(NavigationAuth);

@@ -58,9 +58,7 @@ class InputList extends Component {
 
       return (
         <Div key={question.Klausimas}>
-          <Pas>
-            {question.Number} {question.Klausimas}
-          </Pas>
+          <Pas>{question.Klausimas}</Pas>
           <Input
             required
             className="window"

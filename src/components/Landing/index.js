@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { withAuthorization } from "../Session";
-import styled from "styled-components";
 
 import GlobalStyle from "../GlobalStyle";
 import InputList from "./InputList";
 import SelectOptionsList from "./SelectOptionsList";
-import ComboQuestionsList from "./ComboQuestionsList";
+import AddQuestion from "./AddQuestion";
+import DeleteQuestion from "./DeleteQuestion";
+
+import styled from "styled-components";
 import Swal from "sweetalert2";
 
 // STYLED-COMPONENTS
@@ -41,58 +43,22 @@ const FormButton = styled.button`
   margin-top: 2vh;
   width: 100%;
 `;
-const BottomFormButton = styled.button`
-  background: #1c6ea4;
-  border: 2px inset rgb(66, 61, 61);
-  color: antiquewhite;
-  cursor: pointer;
-  font-size: 2.5vh;
-  font-family: "Libre Baskerville", serif;
-  height: 6.5vh;
-  width: 100%;
-`;
-const Input = styled.input`
-  background: #fffafa;
-  border: 2px solid #1c6ea4;
-  border-bottom: none;
-  padding: 2vh 0 2vh 0;
-  width: 100%;
-
-  ::hover {
-    background-color: #1c6ea4;
-  }
-  ::placeholder {
-    color: #1c6ea4;
-    font-size: 2.5vh;
-    text-align: center;
-  }
-  ::placeholdertextcolor: "red";
-`;
-const RemoveQuestions = styled.select`
-  background: none;
-  border: none;
-  color: #1c6ea4;
-  padding: 2vh 0 2vh 0;
-  width: 100%;
-`;
 
 class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
       List: [],
-      User: null,
+      User: this.props.firebase.auth.currentUser.uid,
       questionsList: [],
       QuestionContent: null,
-      Number: "7.",
-      Document: 1,
+      Document: "1a",
     };
 
     this.handleMembersChange = this.handleMembersChange.bind(this);
-    this.handleRemoveQuestionChange = this.handleRemoveQuestionChange.bind(
-      this
-    );
   }
+
+  answers = {};
 
   componentDidMount() {
     var uid = this.props.firebase.auth.currentUser.uid;
@@ -111,30 +77,26 @@ class Landing extends Component {
         });
         this.setState({ List: members });
       });
-    this.questionsList();
+    this.getFirebaseQuestions();
   }
 
   handleMembersChange(event) {
-    this.setState({ User: event.target.value });
     var member = event.target.value;
     console.log(member);
-    this.questionsList(member);
+
+    this.setState({ User: event.target.value });
+    this.getFirebaseQuestions(member);
 
     this.refs.button.removeAttribute("disabled", "disabled");
     this.refs.button.setAttribute("style", "background-color: #1c6ea4");
   }
 
-  questionsList = (member) => {
+  getFirebaseQuestions = (member) => {
+    var user = this.state.User;
     var core = [];
-    var i = 1;
-    var d = 10;
 
-    console.log(member);
-    var user;
     if (member) {
       user = member;
-    } else {
-      user = this.props.firebase.auth.currentUser.uid;
     }
 
     this.props.firebase.firestore
@@ -149,44 +111,32 @@ class Landing extends Component {
             //General Pushing Questions
             core.push(doc.data());
             this.setState({ questionsList: core });
-
-            // Creating Numbers for Adding Question Function
-            i++;
-            d++;
-            var questionsNumbering = i + ". ";
-            var docNumbering = d + "a";
-            this.setState({ Number: questionsNumbering });
-            this.setState({ Document: docNumbering });
           });
+
+          this.getDocumentNumber();
         } else {
-          var questionsNumbering = "1. ";
-          var docNumbering = "10a";
-          this.setState({ Number: questionsNumbering });
-          this.setState({ Document: docNumbering });
+          this.setState({ Document: 9 });
         }
       });
   };
 
-  answers = {};
+  getDocumentNumber() {
+    var core = this.state.questionsList;
+    var doc = core[core.length - 1]["KitasDokumentas"];
+    this.setState({ Document: doc });
+  }
 
   handleSubmit = (e) => {
     e.preventDefault();
     this.refs.button.setAttribute("disabled", "disabled");
     this.refs.button.setAttribute("style", "background-color: grey");
 
-    var member = this.state.User;
-    if (member) {
-      var user = member;
-      console.log(user);
-    } else {
-      user = this.props.firebase.auth.currentUser.uid;
-      console.log(user);
-    }
-
     var date = JSON.stringify(new Date());
     var today = date.substring(1, 11);
-
+    var user = this.state.User;
     var pastResults = [];
+
+    console.log(user, this.props.firebase.auth.currentUser.uid);
     this.props.firebase.firestore
       .collection("Questions")
       .doc(user)
@@ -198,30 +148,20 @@ class Landing extends Component {
         });
 
         if (pastResults.length === 0) {
-          this.sendResultsNewDocument(user, today);
+          this.sendResultsToNewDocument(user, today);
         } else {
-          var number =
-            parseInt(pastResults[pastResults.length - 1]["Number"]) + 1;
-
-          var latestPastResults = Object.values(
-            pastResults[pastResults.length - 1]["Atsakymai"]
-          );
-          var documentDate = pastResults[pastResults.length - 1]["Date"];
-
-          if (number === 8) {
-            this.sendResultsNewDocument(user, today);
-            console.log("new doc");
-          } else {
-            this.sendResults(latestPastResults, user, number, documentDate);
-            console.log("update doc");
-          }
+          this.updateDocument(user, today, pastResults);
         }
       });
   };
 
-  sendResultsNewDocument(user, today) {
-    console.log(user);
+  sendResultsToNewDocument(user, today) {
     var inputAnswers = Object.values(this.answers);
+    var typeArray = [];
+    for (var i = 0; i < this.state.questionsList.length; i++) {
+      var getType = this.state.questionsList[i]["Tipas"];
+      typeArray.push(getType);
+    }
 
     this.props.firebase.firestore
       .collection("Questions")
@@ -232,13 +172,34 @@ class Landing extends Component {
         Atsakymai: inputAnswers,
         Number: 1,
         Date: today,
+        Tipas: typeArray,
       })
       .then(() => {
         Swal.fire("Your Answers are Saved!");
       });
   }
 
-  sendResults(latestPastResults, user, number, documentDate) {
+  updateDocument(user, today, pastResults) {
+    var documentDate = pastResults[pastResults.length - 1]["Date"];
+    var number = parseInt(pastResults[pastResults.length - 1]["Number"]) + 1;
+    var latestPastResults = Object.values(
+      pastResults[pastResults.length - 1]["Atsakymai"]
+    );
+
+    if (number === 8) {
+      this.sendResultsToNewDocument(user, today);
+    } else {
+      this.updateResults(latestPastResults, user, number, documentDate);
+    }
+  }
+
+  updateResults(latestPastResults, user, number, documentDate) {
+    var typeArray = [];
+    for (var i = 0; i < this.state.questionsList.length; i++) {
+      var getType = this.state.questionsList[i]["Tipas"];
+      typeArray.push(getType);
+    }
+
     var inputAnswers = Object.values(this.answers);
     var sum = latestPastResults.map(function (num, i) {
       return +inputAnswers[i] + +num;
@@ -253,6 +214,7 @@ class Landing extends Component {
         Atsakymai: sum,
         Number: number,
         Date: documentDate,
+        Tipas: typeArray,
       })
       .then(() => {
         Swal.fire("Your Answers are Saved!");
@@ -263,71 +225,13 @@ class Landing extends Component {
     this.answers[id] = value;
   };
 
-  // Adding Questions Functions ***!***
-
-  onValueChange = (e) => {
-    console.log(e.target.value);
-    this.setState({
-      [e.target.id]: e.target.value,
-    });
-  };
-  handleAddQuestionSubmit = (e) => {
-    e.preventDefault();
-    var today = JSON.stringify(new Date());
-    var User = this.state.User;
-    var kelintas = this.state.Document;
-
-    this.props.firebase.firestore
-      .collection("Questions")
-      .doc(User)
-      .collection("Klausimai")
-      .doc(kelintas)
-      .set({
-        Data: today,
-        Klausimas: this.state.QuestionContent,
-        Number: this.state.Number,
-      })
-      .then(() => {
-        this.questionsList();
-        Swal.fire("Question Added!", "Good Luck with it :)", "success");
-      });
-  };
-
-  // Removing Question Functions
-
-  handleRemoveQuestionChange = (event) => {
-    this.setState({ QuestionContent: event.target.value });
-  };
-  handleRemoveQuestionSubmit = (e) => {
-    e.preventDefault();
-    var User = this.state.User;
-    var chosenQuestion = this.state.QuestionContent;
-
-    var test = this.props.firebase.firestore
-      .collection("Questions")
-      .doc(User)
-      .collection("Klausimai")
-      .where("Klausimas", "==", chosenQuestion);
-
-    test.get().then((querySnapshot) => {
-      querySnapshot.forEach(
-        function (doc) {
-          doc.ref.delete().then(() => {
-            this.questionsList();
-            Swal.fire("Question Removed!", "", "success");
-          });
-        }.bind(this)
-      );
-    });
-  };
-
   render() {
+    //Show this Display to Admin Users
     if (
       this.props.firebase.auth.currentUser.uid ===
-      "x4UU8rQmizYzCdhP61F8qtkeMSx1"
+        "09Teh7itY9PN7Nd4SyPJtgCsiNo2" &&
+      "PVnxezLAV3OnFCDYuSKbmTWS0cn2"
     ) {
-      return <div>Tu negali nieko matyti</div>;
-    } else {
       return (
         <div
           style={{
@@ -354,6 +258,12 @@ class Landing extends Component {
               >
                 Choose Another User
               </option>
+              <option
+                value={this.props.firebase.auth.currentUser.uid}
+                key="My Account"
+              >
+                My Account
+              </option>
               <SelectOptionsList usersList={this.state.List} />
             </Box>
             <div style={{ height: "50vh", overflow: "auto" }}>
@@ -367,36 +277,74 @@ class Landing extends Component {
                 <FormButton ref="button">Submit Answers</FormButton>
               </Form>
             </div>
+
             <div>
-              <GlobalStyle />
               <h3 style={{ marginTop: "3vh" }}>
                 Add or Remove a Question from the List
               </h3>
               <div style={{ display: "flex" }}>
-                <Form onSubmit={this.handleAddQuestionSubmit}>
-                  <Input
-                    required
-                    placeholder="Insert content..."
-                    type="text"
-                    id="QuestionContent"
-                    onChange={this.onValueChange}
+                <AddQuestion
+                  User={this.state.User}
+                  Document={this.state.Document}
+                  onSubmit={this.getFirebaseQuestions}
+                />
+                <DeleteQuestion
+                  User={this.state.User}
+                  questionsList={this.state.questionsList}
+                  onSubmit={this.getFirebaseQuestions}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      );
+    } else {
+      //Show this Display to all Casual Users
+      return (
+        <div
+          style={{
+            alignItems: "center",
+            display: "flex",
+            flexDirection: "column",
+            marginTop: "3vh",
+          }}
+        >
+          <GlobalStyle />
+          <div
+            style={{
+              color: "#1c6ea4",
+              marginBottom: "1vh",
+              width: "88%",
+            }}
+          >
+            <H2>How Was Your Day:</H2>
+            <div style={{ height: "50vh", overflow: "auto" }}>
+              <Form onSubmit={this.handleSubmit}>
+                <div style={{ display: "inlineBlock" }}>
+                  <InputList
+                    checkChange={this.checkChange}
+                    questionsList={this.state.questionsList}
                   />
-                  <BottomFormButton>Add Question</BottomFormButton>
-                </Form>
-                <Form onSubmit={this.handleRemoveQuestionSubmit}>
-                  <RemoveQuestions onChange={this.handleRemoveQuestionChange}>
-                    <option
-                      value={this.props.firebase.auth.currentUser.uid}
-                      key="Choose a user"
-                    >
-                      Choose Question
-                    </option>
-                    <ComboQuestionsList
-                      questionsList={this.state.questionsList}
-                    />
-                  </RemoveQuestions>
-                  <BottomFormButton>Remove Question</BottomFormButton>
-                </Form>
+                </div>
+                <FormButton ref="button">Submit Answers</FormButton>
+              </Form>
+            </div>
+
+            <div>
+              <h3 style={{ marginTop: "3vh" }}>
+                Add or Remove a Question from the List
+              </h3>
+              <div style={{ display: "flex" }}>
+                <AddQuestion
+                  User={this.state.User}
+                  Document={this.state.Document}
+                  onSubmit={this.getFirebaseQuestions}
+                />
+                <DeleteQuestion
+                  User={this.state.User}
+                  questionsList={this.state.questionsList}
+                  onSubmit={this.getFirebaseQuestions}
+                />
               </div>
             </div>
           </div>

@@ -8,7 +8,8 @@ import SignInPage from "../SignIn";
 import PasswordForgetPage from "../PasswordForget";
 import AccountPage from "../Account";
 import AdminPage from "../Admin";
-import Graphics from "../Graphics";
+import WeeklyGraphics from "../GraphsWeekly";
+import MonthlyGraphics from "../GraphsMonthly";
 import InsertQuestions from "../InsertQuestions";
 import IntroductionPage from "../Introduction";
 import Pool from "../Pool";
@@ -31,7 +32,8 @@ const App = () => (
       />
       <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
       <Route exact path={ROUTES.ADMIN} component={AdminPage} />
-      <Route exact path={ROUTES.GRAPHICS} component={Graphics} />
+      <Route exact path={ROUTES.WEEKLYGRAPHS} component={WeeklyGraphics} />
+      <Route exact path={ROUTES.MONTHLYGRAPHS} component={MonthlyGraphics} />
       <Route exact path={ROUTES.INSERTQUESTIONS} component={InsertQuestions} />
       <Route exact path={ROUTES.INTRODUCTION} component={IntroductionPage} />
       <Route exact path={ROUTES.POOL} component={Pool} />

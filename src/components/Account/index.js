@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import GlobalStyle from "../GlobalStyle";
-
 import PasswordChangeForm from "../PasswordChange";
 import { AuthUserContext, withAuthorization } from "../Session";
 
@@ -31,12 +30,12 @@ class AccountPage extends Component {
         {(authUser) => (
           <div style={{ textAlign: "center" }}>
             <GlobalStyle />
-            <h1 style={{ color: "grey", marginTop: "1.5vh" }}>
+            <h2 style={{ color: "grey", marginTop: "1.5vh" }}>
               {this.state.Info}
-            </h1>
-            <h1 style={{ color: "grey", margin: "2vh" }}>
+            </h2>
+            <h2 style={{ color: "grey", margin: "2vh" }}>
               Email: {authUser.email}
-            </h1>
+            </h2>
             <hr />
             <div
               style={{

@@ -100,13 +100,13 @@ class WeeklyGraphs extends Component {
       // ForEach Factory making Averages
       results.forEach((num) => {
         var questionType = type[i];
-        if (questionType == 1) {
+        if (questionType === 1) {
           var singleAverage = num / number;
           var formated = singleAverage.toFixed(1);
           i++;
         } else {
-          var singleAverage = num / 0.7;
-          var formated = singleAverage.toFixed(1);
+          singleAverage = num / 0.7;
+          formated = singleAverage.toFixed(1);
           i++;
         }
         averages.push(formated);
@@ -122,7 +122,7 @@ class WeeklyGraphs extends Component {
     var number;
     var type;
     this.state.documentsArray.map((doc) => {
-      if (doc.Date == event.target.value) {
+      if (doc.Date === event.target.value) {
         results = doc.Atsakymai;
         number = doc.Number;
         type = doc.Tipas;
@@ -138,13 +138,13 @@ class WeeklyGraphs extends Component {
     results.forEach((num) => {
       var questionType = type[i];
 
-      if (questionType == 1) {
+      if (questionType === 1) {
         var singleAverage = num / number;
         var formated = singleAverage.toFixed(1);
         i++;
       } else {
-        var singleAverage = num / 0.7;
-        var formated = singleAverage.toFixed(1);
+        singleAverage = num / 0.7;
+        formated = singleAverage.toFixed(1);
         i++;
       }
       averages.push(formated);

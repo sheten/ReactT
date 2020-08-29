@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { withAuthorization } from "../Session";
 
-import ComboQuestionsList from "./ComboQuestionsList";
 import styled from "styled-components";
 import Swal from "sweetalert2";
 

@@ -111,16 +111,12 @@ class MonthlyGraphs extends Component {
             LDNumber
           );
         } else {
-          var FDAnswers = Object.values(
-            docArray[docArray.length - 1]["Atsakymai"]
-          );
-          var LDAnswers = Object.values(
-            docArray[docArray.length - 4]["Atsakymai"]
-          );
-          var FDType = Object.values(docArray[docArray.length - 1]["Tipas"]);
-          var LDType = Object.values(docArray[docArray.length - 4]["Tipas"]);
-          var FDNumber = parseInt(docArray[docArray.length - 1]["Number"]);
-          var LDNumber = parseInt(docArray[docArray.length - 4]["Number"]);
+          FDAnswers = Object.values(docArray[docArray.length - 1]["Atsakymai"]);
+          LDAnswers = Object.values(docArray[docArray.length - 4]["Atsakymai"]);
+          FDType = Object.values(docArray[docArray.length - 1]["Tipas"]);
+          LDType = Object.values(docArray[docArray.length - 4]["Tipas"]);
+          FDNumber = parseInt(docArray[docArray.length - 1]["Number"]);
+          LDNumber = parseInt(docArray[docArray.length - 4]["Number"]);
           this.calculateData(
             FDAnswers,
             LDAnswers,
@@ -143,13 +139,13 @@ class MonthlyGraphs extends Component {
     var FDi = 0;
     var FDAverages = [];
     FDAnswers.forEach((ats) => {
-      if (FDType[FDi] == 1) {
+      if (FDType[FDi] === 1) {
         var singleAverage = ats / FDNumber;
         var formated = singleAverage.toFixed(1);
         FDi++;
       } else {
-        var singleAverage = ats / 0.7;
-        var formated = singleAverage.toFixed(1);
+        singleAverage = ats / 0.7;
+        formated = singleAverage.toFixed(1);
         FDi++;
       }
       FDAverages.push(formated);
@@ -159,13 +155,13 @@ class MonthlyGraphs extends Component {
     var LDi = 0;
     var LDAverages = [];
     LDAnswers.forEach((ats) => {
-      if (LDType[LDi] == 1) {
+      if (LDType[LDi] === 1) {
         var singleAverage = ats / LDNumber;
         var formated = singleAverage.toFixed(1);
         LDi++;
       } else {
-        var singleAverage = ats / 0.7;
-        var formated = singleAverage.toFixed(1);
+        singleAverage = ats / 0.7;
+        formated = singleAverage.toFixed(1);
         LDi++;
       }
       LDAverages.push(formated);

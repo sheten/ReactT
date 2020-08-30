@@ -67,6 +67,7 @@ class AddQuestion extends Component {
     var User = this.props.User;
     var docNumber = this.props.Document + 1;
     var doc = docNumber + "a";
+    console.log(docNumber);
 
     this.props.firebase.firestore
       .collection("Questions")

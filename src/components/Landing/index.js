@@ -136,7 +136,6 @@ class Landing extends Component {
     var user = this.state.User;
     var pastResults = [];
 
-    console.log(user, this.props.firebase.auth.currentUser.uid);
     this.props.firebase.firestore
       .collection("Questions")
       .doc(user)

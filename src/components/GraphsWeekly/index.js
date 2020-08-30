@@ -121,7 +121,7 @@ class WeeklyGraphs extends Component {
     var results;
     var number;
     var type;
-    this.state.documentsArray.map((doc) => {
+    this.state.documentsArray.forEach((doc) => {
       if (doc.Date === event.target.value) {
         results = doc.Atsakymai;
         number = doc.Number;

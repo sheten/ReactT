@@ -138,8 +138,10 @@ class SignUpForm extends Component {
               .collection("Klausimai")
               .doc(doc)
               .set({
+                Data: today,
                 Klausimas: ats,
                 KitasDokumentas: i,
+                Tipas: 1,
               });
           }
 

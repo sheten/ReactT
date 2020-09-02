@@ -228,7 +228,7 @@ class Landing extends Component {
     //Show this Display to Admin Users
     if (
       this.props.firebase.auth.currentUser.uid ===
-        "09Teh7itY9PN7Nd4SyPJtgCsiNo2" &&
+        "09Teh7itY9PN7Nd4SyPJtgCsiNo2" ||
       "PVnxezLAV3OnFCDYuSKbmTWS0cn2"
     ) {
       return (

@@ -26,12 +26,13 @@ class NavigationAuth extends Component {
   };
 
   render() {
-    if (
+    if (this.props.firebase.auth.currentUser.uid == null) {
+      console.log("bug");
+    } else if (
       this.props.firebase.auth.currentUser.uid ===
-        "09Teh7itY9PN7Nd4SyPJtgCsiNo2" &&
+        "09Teh7itY9PN7Nd4SyPJtgCsiNo2" ||
       "PVnxezLAV3OnFCDYuSKbmTWS0cn2"
     ) {
-      // Show to Admins
       return (
         <nav
           className="sticky"
@@ -72,6 +73,15 @@ class NavigationAuth extends Component {
             </li>
             <li>
               <Link
+                to={ROUTES.ACCOUNT}
+                className="nav-Link"
+                onClick={this.handleChecked}
+              >
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link
                 to={ROUTES.MONTHLYGRAPHS}
                 className="nav-Link"
                 onClick={this.handleChecked}
@@ -88,24 +98,6 @@ class NavigationAuth extends Component {
                 Weekly Graphs
               </Link>
             </li>
-            <li>
-              <Link
-                to={ROUTES.ADMIN}
-                className="nav-Link"
-                onClick={this.handleChecked}
-              >
-                Admin
-              </Link>
-            </li>
-            <li>
-              <Link
-                to={ROUTES.ACCOUNT}
-                className="nav-Link"
-                onClick={this.handleChecked}
-              >
-                Profile
-              </Link>
-            </li>
 
             <li>
               <SignOutButton />
@@ -114,7 +106,6 @@ class NavigationAuth extends Component {
         </nav>
       );
     } else {
-      // Show to All users
       return (
         <nav
           className="sticky"
@@ -171,6 +162,7 @@ class NavigationAuth extends Component {
                 Weekly Graphs
               </Link>
             </li>
+
             <li>
               <SignOutButton />
             </li>

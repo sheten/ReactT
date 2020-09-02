@@ -1,24 +1,17 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
-
+import { withRouter } from "react-router-dom";
 import { withFirebase } from "../Firebase";
-import * as ROUTES from "../../constants/routes";
+
 import GlobalStyle from "../GlobalStyle";
 
-const PasswordForgetPage = () => (
-  <div style={{ textAlign: "center", marginTop: "5vh" }}>
-    <h1>Forgot Password</h1>
-    <hr />
-    <PasswordForgetForm />
-  </div>
-);
+import Swal from "sweetalert2";
 
 const INITIAL_STATE = {
   email: "",
   error: null,
 };
 
-class PasswordForgetFormBase extends Component {
+class PasswordForgetForm extends Component {
   constructor(props) {
     super(props);
 
@@ -32,6 +25,7 @@ class PasswordForgetFormBase extends Component {
       .doPasswordReset(email)
       .then(() => {
         this.setState({ ...INITIAL_STATE });
+        Swal.fire("Now follow instructions on the email");
       })
       .catch((error) => {
         this.setState({ error });
@@ -50,51 +44,45 @@ class PasswordForgetFormBase extends Component {
     const isInvalid = email === "";
 
     return (
-      <form onSubmit={this.onSubmit}>
-        <input
-          name="email"
-          value={this.state.email}
-          onChange={this.onChange}
-          type="text"
-          placeholder="Insert Email Adresas"
-          style={{
-            background: "none",
-            border: "2px inset #1c6ea4",
-            color: "#1c6ea4",
-            flex: 1,
-            padding: "1vh",
-          }}
-        />
-        <GlobalStyle />
-        <button
-          disabled={isInvalid}
-          type="submit"
-          style={{
-            background: "none",
-            border: "2px inset #1c6ea4",
-            color: "#1c6ea4",
-            cursor: "pointer",
-            margin: "5px",
-            padding: "1vh",
-          }}
-        >
-          Change Password
-        </button>
+      <div style={{ textAlign: "center", marginTop: "5vh" }}>
+        <h1>Forgot Password</h1>
+        <hr />
+        <form onSubmit={this.onSubmit}>
+          <input
+            name="email"
+            value={this.state.email}
+            onChange={this.onChange}
+            type="text"
+            placeholder="Insert Email Adresas"
+            style={{
+              background: "none",
+              border: "2px inset #1c6ea4",
+              color: "#1c6ea4",
+              flex: 1,
+              padding: "1vh",
+            }}
+          />
+          <GlobalStyle />
+          <button
+            disabled={isInvalid}
+            type="submit"
+            style={{
+              background: "none",
+              border: "2px inset #1c6ea4",
+              color: "#1c6ea4",
+              cursor: "pointer",
+              margin: "5px",
+              padding: "1vh",
+            }}
+          >
+            Change Password
+          </button>
 
-        {error && <p>{error.message}</p>}
-      </form>
+          {error && <p>{error.message}</p>}
+        </form>
+      </div>
     );
   }
 }
 
-const PasswordForgetLink = () => (
-  <p>
-    <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
-  </p>
-);
-
-export default PasswordForgetPage;
-
-const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
-
-export { PasswordForgetForm, PasswordForgetLink };
+export default withRouter(withFirebase(PasswordForgetForm));

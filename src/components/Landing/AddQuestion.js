@@ -23,7 +23,7 @@ const Input = styled.input`
   }
   ::placeholder {
     color: #1c6ea4;
-    font-size: 2.5vh;
+    font-size: 2vh;
     text-align: center;
   }
   ::placeholdertextcolor: "red";
@@ -89,9 +89,7 @@ class AddQuestion extends Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit} ref="addQuestionForm">
-        <div
-          style={{ display: "flex", fontSize: "2.5vh", marginBottom: "5px" }}
-        >
+        <div style={{ display: "flex", fontSize: "2vh", marginBottom: "5px" }}>
           <div>Type:</div>
           <RadioInput
             type="radio"

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import { connect } from "react-redux";
 
 import PasswordForgetLink from "../PasswordForget/PasswordForgetLink";
 import SignUpLink from "../SignUp/SignUpLink";
@@ -44,4 +45,11 @@ class SignInPage extends Component {
   }
 }
 
+// const mapReducerStateToProps = (state) => {
+//   return {
+//     post: state.items
+//   }
+// }
+
+// export default connect(mapReducerStateToProps(SignInPage);
 export default SignInPage;

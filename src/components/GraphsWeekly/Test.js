@@ -49,7 +49,6 @@ class Test extends Component {
     }
     for (i = 0; averages.length > i; i++) {
       selection = "div#a" + i;
-      var loop = averages[i];
       svg = d3
         .select(selection)
         .append("svg")
@@ -63,9 +62,7 @@ class Test extends Component {
         .attr("class", "sBar")
         .attr("x", 0)
         .attr("y", (result, i) => i * height)
-        .attr("width", function () {
-          return loop * width;
-        })
+        .attr("width", averages[i] * width)
         .attr("height", 43);
       svg
         .selectAll("text")
@@ -75,9 +72,7 @@ class Test extends Component {
         .attr("class", "titles")
         .attr("x", (result) => result * width - 30)
         .attr("y", (data, i) => i * height + 25)
-        .text(function () {
-          return loop;
-        });
+        .text(averages[i]);
     }
     this.svgDiv = svg;
     return svg;

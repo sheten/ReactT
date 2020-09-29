@@ -1,11 +1,11 @@
-.bar {
+/* .bar {
   border: 5px groove rgb(42, 11, 82);
   background-color: rgb(47, 87, 163);
   height: 100%;
   padding-top: 4vh;
   margin: 0 auto;
   width: 100%;
-}
+} */
 .sBar {
   fill: rgb(32, 13, 83);
 }
@@ -22,25 +22,4 @@
   font-size: 1.8vh;
   font-weight: 600;
   width: 80vh;
-}
-
-.svg-container {
-  display: inline-block;
-  position: relative;
-  width: 100%;
-  padding-bottom: 100%; /* aspect ratio */
-  vertical-align: top;
-  overflow: hidden;
-}
-.svg-content-responsive {
-  display: inline-block;
-  position: absolute;
-  top: 10px;
-  left: 0;
-}
-
-svg .rect {
-  fill: gold;
-  stroke: steelblue;
-  stroke-width: 5px;
 }

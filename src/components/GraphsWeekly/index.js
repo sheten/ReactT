@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { withAuthorization } from "../Session";
 
+import { connect } from "react-redux";
+import { AddQuestions } from "../../Actions/AddQuestions";
+
 import SelectOptionsList from "../Landing/SelectOptionsList";
 import BoxOfPastWeeks from "./BoxOfPastWeeks";
 import Test from "./Test";
 
-// import * as d3 from "d3";
-import Swal from "sweetalert2";
 import styled from "styled-components";
-// import "./style.css";
+import Swal from "sweetalert2";
 
 // STYLED-COMPONENTS
 const Box = styled.select`
@@ -17,23 +18,25 @@ const Box = styled.select`
   color: #1c6ea4;
   font-size: 3vh;
   font-family: "Libre Baskerville", serif;
-  overflow: auto;
   margin-top: 2vh;
+`;
+const GraphDiv = styled.div`
+  border: 5px groove rgb(42, 11, 82);
+  background: rgb(47, 87, 163);
+  margin-top: 3vh;
+  padding-top: 2vh;
 `;
 
 class WeeklyGraphs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      questionsList: [],
-      documentsArray: [],
-      List: [],
       User: this.props.firebase.auth.currentUser.uid,
-      svg: null,
-      questions: [],
+      List: [],
+      documentsArray: [],
       averages: [],
+      questions: [],
     };
-    this.myRef = React.createRef();
   }
   componentDidMount() {
     var members = [];
@@ -122,9 +125,8 @@ class WeeklyGraphs extends Component {
             averages.push(formated);
           });
           console.log(averages);
+          this.props.addQuestionsAverages(questions, averages);
           this.setState({
-            averages: averages,
-            questions: questions,
             List: members,
             documentsArray: documentsArray,
           });
@@ -237,9 +239,9 @@ class WeeklyGraphs extends Component {
       //       u++;
       //     });
       //   });
+
+      this.props.addQuestionsAverages(questions, averages);
       this.setState({
-        averages: averages,
-        questions: questions,
         List: members,
         documentsArray: documentsArray,
       });
@@ -304,63 +306,11 @@ class WeeklyGraphs extends Component {
             changedQuestions.push(questions[i]);
           }
 
-          this.setState({
-            questions: changedQuestions,
-            averages: averages,
-            svg: this.appendGraphs(averages, changedQuestions),
-          });
+          this.props.addQuestionsAverages(changedQuestions, averages);
         } else if (results.length === questions.length) {
-          this.setState({
-            questions: questions,
-            averages: averages,
-            svg: this.appendGraphs(averages, questions),
-          });
+          this.props.addQuestionsAverages(questions, averages);
         }
       });
-  };
-
-  appendGraphs = (averages, questions) => {
-    // var svgg = this.state.svg;
-    // if (svg) {
-    //   svg.remove();
-    // }
-    // const width = (window.innerWidth * 0.99) / 10;
-    // const height = window.innerHeight / 9;
-    // console.log(this.state.questions);
-    // svg = d3
-    //   .select(this.refs.barChart)
-    //   .append("svg")
-    //   .attr("class", "bar")
-    //   .attr("height", averages.length * height);
-    // svg
-    //   .selectAll("rect")
-    //   .data(averages)
-    //   .enter()
-    //   .append("rect")
-    //   .attr("class", "sBar")
-    //   .attr("x", 0)
-    //   .attr("y", (result, i) => i * height)
-    //   .attr("width", (result, i) => result * width)
-    //   .attr("height", 43);
-    // svg
-    //   .selectAll("text")
-    //   .data(this.state.questions)
-    //   .enter()
-    //   .append("text")
-    //   .attr("class", "question")
-    //   .attr("x", 0)
-    //   .attr("y", (data, i) => i * height - 10)
-    //   .text((result) => result);
-    // svg
-    //   .selectAll("circle")
-    //   .data(averages)
-    //   .enter()
-    //   .append("text")
-    //   .attr("class", "titles")
-    //   .attr("x", (result) => result * width - 35)
-    //   .attr("y", (data, i) => i * height + 25)
-    //   .text((result) => result);
-    // return svg;
   };
 
   render() {
@@ -392,15 +342,12 @@ class WeeklyGraphs extends Component {
             <BoxOfPastWeeks documentsArray={this.state.documentsArray} />
           </Box>
 
-          <div ref="barChart" className="barDiv">
-            <h2 style={{ color: "#1c6ea4", textAlign: "center" }}>
-              Weekly Results
+          <GraphDiv ref="barChart">
+            <h2 style={{ color: "white", textAlign: "center" }}>
+              Results of Week
             </h2>
-          </div>
-          <Test
-            averages={this.state.averages}
-            questions={this.state.questions}
-          />
+            <Test />
+          </GraphDiv>
         </div>
       );
     } else {
@@ -421,5 +368,21 @@ class WeeklyGraphs extends Component {
   }
 }
 
+const mapReducerStateToProps = (reducerState) => {
+  return {
+    questions: reducerState.questions,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addQuestionsAverages: (questions, averages) =>
+      dispatch(AddQuestions(questions, averages)),
+  };
+};
+
 const condition = (authUser) => !!authUser;
-export default withAuthorization(condition)(WeeklyGraphs);
+export default withAuthorization(condition)(
+  connect(mapReducerStateToProps, mapDispatchToProps)(WeeklyGraphs)
+);
+// export default (WeeklyGraphs);

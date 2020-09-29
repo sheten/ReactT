@@ -1,24 +1,19 @@
 const initState = {
-  items: [
-    {
-      id: "1",
-      title: "Karalius",
-      body: "Yra pavaldus zmonems, zmones jam pavaldus",
-    },
-    {
-      id: "2",
-      title: "Sargybinis",
-      body: "Yra atsakingas uz save ir teritorijos sauguma",
-    },
-    {
-      id: "3",
-      title: "Zemdirbys",
-      body: "Yra paprastas gyventojas, palaikantis karalystes gyvybinguma",
-    },
-  ],
+  questions: [],
+  averages: [],
 };
 
 const rootReducer = (state = initState, action) => {
+  if (action.type === "ADD_QUESTION") {
+    // let newPostsList = state.posts.filter((post) => {
+    //   return post.id !== action.id;
+    // });
+
+    return {
+      questions: action.questions,
+      averages: action.averages,
+    };
+  }
   return state;
 };
 

@@ -11,7 +11,6 @@ import AdminPage from "../Admin";
 import WeeklyGraphics from "../GraphsWeekly";
 import MonthlyGraphics from "../GraphsMonthly";
 import InsertQuestions from "../InsertQuestions";
-import IntroductionPage from "../Introduction";
 import Pool from "../Pool";
 
 import * as ROUTES from "../../constants/routes";
@@ -35,7 +34,6 @@ const App = () => (
       <Route exact path={ROUTES.WEEKLYGRAPHS} component={WeeklyGraphics} />
       <Route exact path={ROUTES.MONTHLYGRAPHS} component={MonthlyGraphics} />
       <Route exact path={ROUTES.INSERTQUESTIONS} component={InsertQuestions} />
-      <Route exact path={ROUTES.INTRODUCTION} component={IntroductionPage} />
       <Route exact path={ROUTES.POOL} component={Pool} />
     </div>
   </Router>

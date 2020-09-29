@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import "./index.css";
 import * as serviceWorker from "./serviceWorker";
+import Firebase, { FirebaseContext } from "./components/Firebase";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
 
 import App from "./components/App";
-import Firebase, { FirebaseContext } from "./components/Firebase";
-
-import { createStore } from "redux";
-import { Provider } from "react-redux";
 import rootReducer from "./Reducers/rootReducer";
+
+import "./index.css";
 
 const store = createStore(rootReducer);
 

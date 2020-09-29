@@ -37,7 +37,11 @@ class NavigationAuth extends Component {
         <nav
           className="sticky"
           id="navbar"
-          style={{ zIndex: 1, boxShadow: "0 4px 2px -2px gray" }}
+          style={{
+            zIndex: 1,
+            boxShadow: "0 4px 2px -2px gray",
+            height: "10vh",
+          }}
         >
           <input type="checkbox" id="check" />
 

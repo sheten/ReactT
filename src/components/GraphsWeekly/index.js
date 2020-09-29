@@ -16,12 +16,12 @@ const Box = styled.select`
   background: none;
   border: none;
   color: #1c6ea4;
-  font-size: 3vh;
+  font-size: 2.5vh;
   font-family: "Libre Baskerville", serif;
   margin-top: 2vh;
 `;
 const GraphDiv = styled.div`
-  border: 5px groove rgb(42, 11, 82);
+  // border: 5px groove rgb(42, 11, 82);
   background: rgb(47, 87, 163);
   margin-top: 3vh;
   padding-top: 2vh;
@@ -218,34 +218,11 @@ class WeeklyGraphs extends Component {
         }
         averages.push(formated);
       });
-
-      // var docData = [];
-      // questions = [];
-      // var u = 0;
-
-      // this.props.firebase.firestore
-      //   .collection("Questions")
-      //   .doc(uid)
-      //   .collection("Klausimai")
-      //   .get()
-      //   .then((querySnapshot) => {
-      //     if (querySnapshot.docs.length > 0) {
-      //       querySnapshot.forEach((doc) => {
-      //         docData.push(doc.data());
-      //       });
-      //     }
-      //     docData.forEach(() => {
-      //       questions.push(docData[u]["Klausimas"]);
-      //       u++;
-      //     });
-      //   });
-
       this.props.addQuestionsAverages(questions, averages);
       this.setState({
         List: members,
         documentsArray: documentsArray,
       });
-      // this.setState({ svg: this.appendGraphs(averages, questions) });
     }
   };
 
@@ -320,34 +297,38 @@ class WeeklyGraphs extends Component {
       "PVnxezLAV3OnFCDYuSKbmTWS0cn2"
     ) {
       return (
-        <div>
-          <Box onChange={this.handleUserChange}>
-            <option
-              value={this.props.firebase.auth.currentUser.uid}
-              key="Choose a user"
-            >
-              Choose Another User
-            </option>
-            <option
-              value={this.props.firebase.auth.currentUser.uid}
-              key="My Account"
-            >
-              My Account
-            </option>
-            <SelectOptionsList usersList={this.state.List} />
-          </Box>
-          <br />
+        <div style={{ width: "100%", height: "100%" }}>
+          <div style={{ height: "10vh", marginBottom: "2vh" }}>
+            <Box onChange={this.handleUserChange}>
+              <option
+                value={this.props.firebase.auth.currentUser.uid}
+                key="Choose a user"
+              >
+                Choose Another User
+              </option>
+              <option
+                value={this.props.firebase.auth.currentUser.uid}
+                key="My Account"
+              >
+                My Account
+              </option>
+              <SelectOptionsList usersList={this.state.List} />
+            </Box>
+            <br />
 
-          <Box onChange={this.handleMonthChange}>
-            <BoxOfPastWeeks documentsArray={this.state.documentsArray} />
-          </Box>
+            <Box onChange={this.handleMonthChange}>
+              <BoxOfPastWeeks documentsArray={this.state.documentsArray} />
+            </Box>
+          </div>
 
-          <GraphDiv ref="barChart">
-            <h2 style={{ color: "white", textAlign: "center" }}>
-              Results of Week
-            </h2>
-            <Test />
-          </GraphDiv>
+          <div style={{ height: "78vh", overflow: "auto" }}>
+            <GraphDiv ref="barChart">
+              <h2 style={{ color: "white", textAlign: "center" }}>
+                Results of Week
+              </h2>
+              <Test />
+            </GraphDiv>
+          </div>
         </div>
       );
     } else {

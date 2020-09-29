@@ -10,7 +10,7 @@ import "./style.css";
 const Div = styled.div`
   display: flex;
   flex-direction: column;
-  // height: 200px;
+  // padding-bottom: 500px;
 `;
 const Pas = styled.p`
   flex: 1;
@@ -34,7 +34,7 @@ class Test extends Component {
   }
   svgDiv = null;
   componentDidUpdate() {
-    const width = (window.innerWidth * 0.99) / 10;
+    const width = (window.innerWidth * 0.955) / 10;
     const height = window.innerHeight / 9;
     var averages = this.props.averages;
     var svg = this.svgDiv;
@@ -70,7 +70,7 @@ class Test extends Component {
         .enter()
         .append("text")
         .attr("class", "titles")
-        .attr("x", (result) => result * width - 30)
+        .attr("x", averages[i] * width - 35)
         .attr("y", (data, i) => i * height + 25)
         .text(averages[i]);
     }

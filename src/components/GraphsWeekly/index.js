@@ -104,24 +104,24 @@ class WeeklyGraphs extends Component {
           var results = Object.values(
             documentsArray[documentsArray.length - 1]["Atsakymai"]
           );
-          var type = Object.values(
-            documentsArray[documentsArray.length - 1]["Tipas"]
-          );
+          // var type = Object.values(
+          //   documentsArray[documentsArray.length - 1]["Tipas"]
+          // );
 
           var i = 0;
 
           // ForEach Factory making Averages
           results.forEach((num) => {
-            var questionType = type[i];
-            if (questionType === 1) {
+            // var questionType = type[i];
+            // if (questionType === 1) {
               var singleAverage = num / number;
               var formated = singleAverage.toFixed(1);
               i++;
-            } else {
-              singleAverage = num / 0.7;
-              formated = singleAverage.toFixed(1);
-              i++;
-            }
+            // } else {
+            //   var singleAverage = num / 0.7;
+            //   var formated = singleAverage.toFixed(1);
+            //   i++;
+            // }
             averages.push(formated);
           });
           console.log(averages);
@@ -198,24 +198,24 @@ class WeeklyGraphs extends Component {
       var results = Object.values(
         documentsArray[documentsArray.length - 1]["Atsakymai"]
       );
-      var type = Object.values(
-        documentsArray[documentsArray.length - 1]["Tipas"]
-      );
+      // var type = Object.values(
+      //   documentsArray[documentsArray.length - 1]["Tipas"]
+      // );
 
       var i = 0;
 
       // ForEach Factory making Averages
       results.forEach((num) => {
-        var questionType = type[i];
-        if (questionType === 1) {
+        // var questionType = type[i];
+        // if (questionType === 1) {
           var singleAverage = num / number;
           var formated = singleAverage.toFixed(1);
           i++;
-        } else {
-          singleAverage = num / 0.7;
-          formated = singleAverage.toFixed(1);
-          i++;
-        }
+        // } else {
+        //   var singleAverage = num / 0.7;
+        //   var formated = singleAverage.toFixed(1);
+        //   i++;
+        // }
         averages.push(formated);
       });
       this.props.addQuestionsAverages(questions, averages);
@@ -234,7 +234,7 @@ class WeeklyGraphs extends Component {
       if (doc.Date === event.target.value) {
         results = doc.Atsakymai;
         number = doc.Number;
-        type = doc.Tipas;
+        // type = doc.Tipas;
       }
     });
     this.changeGraph(results, number, type);
@@ -245,17 +245,16 @@ class WeeklyGraphs extends Component {
     var i = 0;
 
     results.forEach((num) => {
-      var questionType = type[i];
-
-      if (questionType === 1) {
+      // var questionType = type[i];
+      // if (questionType === 1) {
         var singleAverage = num / number;
         var formated = singleAverage.toFixed(1);
         i++;
-      } else {
-        singleAverage = num / 0.7;
-        formated = singleAverage.toFixed(1);
-        i++;
-      }
+      // } else {
+      //   var singleAverage = num / 0.7;
+      //   var formated = singleAverage.toFixed(1);
+      //   i++;
+      // }
       averages.push(formated);
     });
 

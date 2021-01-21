@@ -26,13 +26,7 @@ class NavigationAuth extends Component {
   };
 
   render() {
-    if (this.props.firebase.auth.currentUser.uid == null) {
-      console.log("bug");
-    } else if (
-      this.props.firebase.auth.currentUser.uid ===
-        "09Teh7itY9PN7Nd4SyPJtgCsiNo2" ||
-      "PVnxezLAV3OnFCDYuSKbmTWS0cn2"
-    ) {
+    if (this.props.firebase.auth.currentUser.uid) {
       return (
         <nav
           className="sticky"

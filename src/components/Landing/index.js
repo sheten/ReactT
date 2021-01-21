@@ -171,7 +171,7 @@ class Landing extends Component {
         Atsakymai: inputAnswers,
         Number: 1,
         Date: today,
-        Tipas: typeArray,
+        // Tipas: typeArray,
       })
       .then(() => {
         Swal.fire("Your Answers are Saved!");
@@ -225,12 +225,6 @@ class Landing extends Component {
   };
 
   render() {
-    //Show this Display to Admin Users
-    if (
-      this.props.firebase.auth.currentUser.uid ===
-        "09Teh7itY9PN7Nd4SyPJtgCsiNo2" ||
-      "PVnxezLAV3OnFCDYuSKbmTWS0cn2"
-    ) {
       return (
         <div
           style={{
@@ -277,11 +271,11 @@ class Landing extends Component {
               </Form>
             </div>
 
-            <div>
-              <h3 style={{ marginTop: "3vh" }}>
+            <div style={{alignItems: "center", display: "flex", flexDirection: "column"}}>
+              <h3 style={{ marginTop: "5vh" }}>
                 Add or Remove a Question from the List
               </h3>
-              <div style={{ display: "flex" }}>
+              <div style={{ display: "flex", width: "100%"}}>
                 <AddQuestion
                   User={this.state.User}
                   Document={this.state.Document}
@@ -297,59 +291,7 @@ class Landing extends Component {
           </div>
         </div>
       );
-    } else {
-      //Show this Display to all Casual Users
-      return (
-        <div
-          style={{
-            alignItems: "center",
-            display: "flex",
-            flexDirection: "column",
-            marginTop: "3vh",
-          }}
-        >
-          <GlobalStyle />
-          <div
-            style={{
-              color: "#1c6ea4",
-              marginBottom: "1vh",
-              width: "88%",
-            }}
-          >
-            <H2>How Was Your Day:</H2>
-            <div style={{ height: "50vh", overflow: "auto" }}>
-              <Form onSubmit={this.handleSubmit}>
-                <div style={{ display: "inlineBlock" }}>
-                  <InputList
-                    checkChange={this.checkChange}
-                    questionsList={this.state.questionsList}
-                  />
-                </div>
-                <FormButton ref="button">Submit Answers</FormButton>
-              </Form>
-            </div>
-
-            <div>
-              <h3 style={{ marginTop: "3vh" }}>
-                Add or Remove a Question from the List
-              </h3>
-              <div style={{ display: "flex" }}>
-                <AddQuestion
-                  User={this.state.User}
-                  Document={this.state.Document}
-                  onSubmit={this.getFirebaseQuestions}
-                />
-                <DeleteQuestion
-                  User={this.state.User}
-                  questionsList={this.state.questionsList}
-                  onSubmit={this.getFirebaseQuestions}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      );
-    }
+    
   }
 }
 

@@ -16,7 +16,7 @@ const RemoveQuestions = styled.select`
   background: none;
   border: none;
   color: #1c6ea4;
-  margin-top: 24px;
+  // margin-top: 24px;
   padding: 2vh 0 2vh 0;
   width: 100%;
 `;

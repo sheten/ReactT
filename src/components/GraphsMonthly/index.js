@@ -90,12 +90,12 @@ class MonthlyGraphs extends Component {
           var LDAnswers = Object.values(
             docArray[docArray.length - LDremainder]["Atsakymai"]
           );
-          var FDType = Object.values(
-            docArray[docArray.length - FDremainder]["Tipas"]
-          );
-          var LDType = Object.values(
-            docArray[docArray.length - LDremainder]["Tipas"]
-          );
+          // var FDType = Object.values(
+          //   docArray[docArray.length - FDremainder]["Tipas"]
+          // );
+          // var LDType = Object.values(
+          //   docArray[docArray.length - LDremainder]["Tipas"]
+          // );
           var FDNumber = parseInt(
             docArray[docArray.length - FDremainder]["Number"]
           );
@@ -105,23 +105,23 @@ class MonthlyGraphs extends Component {
           this.calculateData(
             FDAnswers,
             LDAnswers,
-            FDType,
-            LDType,
+            // FDType,
+            // LDType,
             FDNumber,
             LDNumber
           );
         } else {
           FDAnswers = Object.values(docArray[docArray.length - 1]["Atsakymai"]);
           LDAnswers = Object.values(docArray[docArray.length - 4]["Atsakymai"]);
-          FDType = Object.values(docArray[docArray.length - 1]["Tipas"]);
-          LDType = Object.values(docArray[docArray.length - 4]["Tipas"]);
+          // FDType = Object.values(docArray[docArray.length - 1]["Tipas"]);
+          // LDType = Object.values(docArray[docArray.length - 4]["Tipas"]);
           FDNumber = parseInt(docArray[docArray.length - 1]["Number"]);
           LDNumber = parseInt(docArray[docArray.length - 4]["Number"]);
           this.calculateData(
             FDAnswers,
             LDAnswers,
-            FDType,
-            LDType,
+            // FDType,
+            // LDType,
             FDNumber,
             LDNumber
           );
@@ -131,23 +131,23 @@ class MonthlyGraphs extends Component {
   calculateData = (
     FDAnswers,
     LDAnswers,
-    FDType,
-    LDType,
+    // FDType,
+    // LDType,
     FDNumber,
     LDNumber
   ) => {
     var FDi = 0;
     var FDAverages = [];
     FDAnswers.forEach((ats) => {
-      if (FDType[FDi] === 1) {
+      // if (FDType[FDi] === 1) {
         var singleAverage = ats / FDNumber;
         var formated = singleAverage.toFixed(1);
         FDi++;
-      } else {
-        singleAverage = ats / 0.7;
-        formated = singleAverage.toFixed(1);
-        FDi++;
-      }
+      // } else {
+      //   var singleAverage = ats / 0.7;
+      //   formated = singleAverage.toFixed(1);
+      //   FDi++;
+      // }
       FDAverages.push(formated);
     });
 
@@ -155,15 +155,15 @@ class MonthlyGraphs extends Component {
     var LDi = 0;
     var LDAverages = [];
     LDAnswers.forEach((ats) => {
-      if (LDType[LDi] === 1) {
+      // if (LDType[LDi] === 1) {
         var singleAverage = ats / LDNumber;
         var formated = singleAverage.toFixed(1);
         LDi++;
-      } else {
-        singleAverage = ats / 0.7;
-        formated = singleAverage.toFixed(1);
-        LDi++;
-      }
+      // } else {
+      //   var singleAverage = ats / 0.7;
+      //   formated = singleAverage.toFixed(1);
+      //   LDi++;
+      // }
       LDAverages.push(formated);
     });
 

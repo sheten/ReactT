@@ -47,14 +47,14 @@ class AddQuestion extends Component {
     super(props);
     this.state = {
       QuestionContent: null,
-      Type: 1,
+      // Type: 1,
     };
   }
-  onRadioChange = (e) => {
-    this.setState({
-      Type: e.target.value,
-    });
-  };
+  // onRadioChange = (e) => {
+  //   this.setState({
+  //     Type: e.target.value,
+  //   });
+  // };
   onValueChange = (e) => {
     this.setState({
       [e.target.id]: e.target.value,
@@ -77,7 +77,7 @@ class AddQuestion extends Component {
       .set({
         Data: today,
         Klausimas: this.state.QuestionContent,
-        Tipas: this.state.Type,
+        // Tipas: this.state.Type,
         KitasDokumentas: docNumber,
       })
       .then(() => {
@@ -89,7 +89,8 @@ class AddQuestion extends Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit} ref="addQuestionForm">
-        <div style={{ display: "flex", fontSize: "2vh", marginBottom: "5px" }}>
+        {/* If there was boolean 1/0 questions */}
+        {/* <div style={{ display: "flex", fontSize: "2vh", marginBottom: "5px" }}>
           <div>Type:</div>
           <RadioInput
             type="radio"
@@ -106,10 +107,10 @@ class AddQuestion extends Component {
             defaultChecked
           />
           1-10
-        </div>
+        </div> */}
         <Input
           required
-          placeholder="Insert content..."
+          placeholder="Insert Content..."
           type="text"
           id="QuestionContent"
           onChange={this.onValueChange}

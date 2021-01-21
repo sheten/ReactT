@@ -108,7 +108,7 @@ class WeeklyGraphs extends Component {
           //   documentsArray[documentsArray.length - 1]["Tipas"]
           // );
 
-          var i = 0;
+          // var i = 0;
 
           // ForEach Factory making Averages
           results.forEach((num) => {
@@ -116,7 +116,7 @@ class WeeklyGraphs extends Component {
             // if (questionType === 1) {
               var singleAverage = num / number;
               var formated = singleAverage.toFixed(1);
-              i++;
+              // i++;
             // } else {
             //   var singleAverage = num / 0.7;
             //   var formated = singleAverage.toFixed(1);
@@ -202,7 +202,7 @@ class WeeklyGraphs extends Component {
       //   documentsArray[documentsArray.length - 1]["Tipas"]
       // );
 
-      var i = 0;
+      // var i = 0;
 
       // ForEach Factory making Averages
       results.forEach((num) => {
@@ -210,7 +210,7 @@ class WeeklyGraphs extends Component {
         // if (questionType === 1) {
           var singleAverage = num / number;
           var formated = singleAverage.toFixed(1);
-          i++;
+          // i++;
         // } else {
         //   var singleAverage = num / 0.7;
         //   var formated = singleAverage.toFixed(1);
@@ -242,14 +242,14 @@ class WeeklyGraphs extends Component {
 
   changeGraph = (results, number, type) => {
     var averages = [];
-    var i = 0;
+    // var i = 0;
 
     results.forEach((num) => {
       // var questionType = type[i];
       // if (questionType === 1) {
         var singleAverage = num / number;
         var formated = singleAverage.toFixed(1);
-        i++;
+        // i++;
       // } else {
       //   var singleAverage = num / 0.7;
       //   var formated = singleAverage.toFixed(1);

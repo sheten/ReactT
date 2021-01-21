@@ -136,13 +136,13 @@ class MonthlyGraphs extends Component {
     FDNumber,
     LDNumber
   ) => {
-    var FDi = 0;
+    // var FDi = 0;
     var FDAverages = [];
     FDAnswers.forEach((ats) => {
       // if (FDType[FDi] === 1) {
         var singleAverage = ats / FDNumber;
         var formated = singleAverage.toFixed(1);
-        FDi++;
+        // FDi++;
       // } else {
       //   var singleAverage = ats / 0.7;
       //   formated = singleAverage.toFixed(1);
@@ -152,13 +152,13 @@ class MonthlyGraphs extends Component {
     });
 
     // ForEach making Last Doc Averages
-    var LDi = 0;
+    // var LDi = 0;
     var LDAverages = [];
     LDAnswers.forEach((ats) => {
       // if (LDType[LDi] === 1) {
         var singleAverage = ats / LDNumber;
         var formated = singleAverage.toFixed(1);
-        LDi++;
+        // LDi++;
       // } else {
       //   var singleAverage = ats / 0.7;
       //   formated = singleAverage.toFixed(1);

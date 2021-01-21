@@ -28,9 +28,9 @@ const Input = styled.input`
   }
   ::placeholdertextcolor: "red";
 `;
-const RadioInput = styled.input`
-  margin-left: 8px;
-`;
+// const RadioInput = styled.input`
+//   margin-left: 8px;
+// `;
 const BottomFormButton = styled.button`
   background: #1c6ea4;
   border: 2px inset rgb(66, 61, 61);

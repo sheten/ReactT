@@ -213,7 +213,7 @@ class Landing extends Component {
         Atsakymai: sum,
         Number: number,
         Date: documentDate,
-        Tipas: typeArray,
+        // Tipas: typeArray,
       })
       .then(() => {
         Swal.fire("Your Answers are Saved!");

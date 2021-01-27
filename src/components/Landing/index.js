@@ -216,7 +216,7 @@ class Landing extends Component {
         // Tipas: typeArray,
       })
       .then(() => {
-        Swal.fire("Your Answers are Saved!");
+        Swal.fire("Your Answers are Saved!", " ", "success");
       });
   }
 

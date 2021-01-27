@@ -59,7 +59,7 @@ class Test extends Component {
         .data(averages[i])
         .enter()
         .append("rect")
-        .attr("class", "sBar")
+        .attr("class", averages[i]<7?"sBar":"sBars")
         .attr("x", 0)
         .attr("y", (result, i) => i * height)
         .attr("width", averages[i] * width)

@@ -7,7 +7,10 @@
   width: 100%;
 } */
 .sBar {
-  fill: rgb(32, 13, 83);
+  fill: rgb(202, 128, 32);
+}
+.sBars {
+  fill: rgb(28, 179, 28);
 }
 .sBar:hover {
   fill: yellow;
